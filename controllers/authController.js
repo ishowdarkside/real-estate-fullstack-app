@@ -67,17 +67,21 @@ exports.protect = catchAsync(async (req, res, next) => {
     return token;
   });
 
-  const user = await User.findById(verified.id).select("-password");
+  const [user, agency] = await Promise.all([
+    User.findById(verified.id).select("-password"),
+    Agency.findById(verified.id),
+  ]);
 
-  if (!user)
+  const validProfile = user || agency;
+  if (validProfile) {
+    if (validProfile.hasChangedPassword())
+      return next(
+        new AppError(401, "Password changed in meantime, please login again!")
+      );
+    req.user = validProfile;
+    next();
+  } else
     return next(new AppError(401, "User doesn't exist anymore! Please login"));
-
-  if (user.hasChangedPassword())
-    return next(
-      new AppError(401, "Password changed in meantime, please login again!")
-    );
-  req.user = user;
-  next();
 });
 
 exports.registerAgency = catchAsync(async (req, res, next) => {

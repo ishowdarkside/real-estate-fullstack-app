@@ -3,6 +3,10 @@ const bcrypt = require("bcrypt");
 
 const userSchema = new mongoose.Schema(
   {
+    role: {
+      type: String,
+      default: "User",
+    },
     fullName: {
       type: "string",
       required: [true, "Molim vas unesite puno ime i prezime!"],

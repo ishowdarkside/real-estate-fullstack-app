@@ -2,6 +2,10 @@ const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
 const agencySchema = new mongoose.Schema(
   {
+    role: {
+      type: String,
+      default: "Agency",
+    },
     agencyName: {
       type: "string",
       required: [true, "Unesite ime agencije!"],
@@ -69,6 +73,13 @@ agencySchema.statics.checkFields = function checkFields(body) {
     return false;
   } else return true;
 };
+
+agencySchema.method("hasChangedPassword", function () {
+  if (!this.passwordChangedAt) return false;
+  const now = new Date().getTime();
+  const timestamp = new Date(this.passwordChangedAt).getTime();
+  return timestamp > now;
+});
 
 agencySchema.pre("save", async function (next) {
   if (!this.isNew) return next();
