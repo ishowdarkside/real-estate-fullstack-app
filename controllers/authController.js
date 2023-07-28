@@ -14,6 +14,7 @@ const generateJWT = require(path.join(
   "generateJWT"
 ));
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 exports.register = catchAsync(async (req, res, next) => {
   //check if user has inputted all required fields
@@ -54,4 +55,27 @@ exports.login = catchAsync(async (req, res, next) => {
     status: "success",
     message: `Uspješno ste se prijavili`,
   });
+});
+
+exports.protect = catchAsync(async (req, res, next) => {
+  const token = req.cookies?.jwt;
+
+  if (!token) return next(new AppError(401, "Unauthorized, please login!"));
+
+  const verified = jwt.verify(token, process.env.JWT_SECRET, (err, token) => {
+    if (err) return next(new AppError(401, "invalid token, please login!"));
+    return token;
+  });
+
+  const user = await User.findById(verified.id).select("-password");
+
+  if (!user)
+    return next(new AppError(401, "User doesn't exist anymore! Please login"));
+
+  if (user.hasChangedPassword())
+    return next(
+      new AppError(401, "Password changed in meantime, please login again!")
+    );
+  req.user = user;
+  next();
 });

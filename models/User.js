@@ -110,6 +110,11 @@ const userSchema = new mongoose.Schema(
         message: "Neispravan broj telefona",
       },
     },
+
+    passwordChangedAt: {
+      type: Date,
+      default: new Date(),
+    },
   },
   { timestamps: true }
 );
@@ -125,6 +130,13 @@ userSchema.statics.checkFields = function checkFields(body) {
     return false;
   } else return true;
 };
+
+userSchema.method("hasChangedPassword", function () {
+  if (!this.passwordChangedAt) return false;
+  const now = new Date().getTime();
+  const timestamp = new Date(this.passwordChangedAt).getTime();
+  return timestamp > now;
+});
 
 userSchema.pre("save", async function (next) {
   if (!this.isNew) return next();
