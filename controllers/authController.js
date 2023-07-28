@@ -13,6 +13,7 @@ const generateJWT = require(path.join(
   "utilities",
   "generateJWT"
 ));
+const bcrypt = require("bcrypt");
 
 exports.register = catchAsync(async (req, res, next) => {
   //check if user has inputted all required fields
@@ -31,13 +32,26 @@ exports.register = catchAsync(async (req, res, next) => {
   //save user
   const user = await User.create(req.body);
 
-  const token = generateJWT(user.id);
-  const expirationDate = new Date(Date.now() + 60 * 24 * 60 * 60 * 1000); // 60 days in milliseconds
+  //generate jwt that will be stored in cookie
+  generateJWT(user.id, res);
 
-  //send cookie as response
-  res.cookie("jwt", token, { expires: expirationDate });
   return res.status(200).json({
     status: "success",
     message: `${user.fullName}, dobrodošao!`,
+  });
+});
+
+exports.login = catchAsync(async (req, res, next) => {
+  if (!req.body.email || !req.body.password)
+    return next(new AppError(400, "Molim vas unesite potrebne podatke!"));
+  const user = await User.findOne({ email: req.body.email });
+  if (!user) return next(new AppError(401, "Neispravan email/lozinka"));
+  const decrypted = await bcrypt.compare(req.body.password, user.password);
+  if (!decrypted) return next(new AppError(401, "Neispravan email/lozinka"));
+  //generate jwt that will be stored in cookie
+  generateJWT(user.id, res);
+  res.status(200).json({
+    status: "success",
+    message: `Uspješno ste se prijavili`,
   });
 });

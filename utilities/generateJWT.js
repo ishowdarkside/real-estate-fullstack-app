@@ -1,10 +1,11 @@
 const jwt = require("jsonwebtoken");
-const generateJWT = function (id) {
+const generateJWT = function (id, res) {
   const token = jwt.sign({ payload: { id } }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRES_IN,
   });
-
-  return token;
+  const expirationDate = new Date(Date.now() + 60 * 24 * 60 * 60 * 1000); // 60 days in milliseconds
+  //send cookie as response
+  res.cookie("jwt", token, { expires: expirationDate });
 };
 
 module.exports = generateJWT;
