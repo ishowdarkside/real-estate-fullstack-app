@@ -1,4 +1,6 @@
 const path = require("path");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 const catchAsync = require(path.join(
   __dirname,
   "..",
@@ -13,8 +15,7 @@ const generateJWT = require(path.join(
   "utilities",
   "generateJWT"
 ));
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+const Agency = require(path.join(__dirname, "..", "models", "Agency"));
 
 exports.register = catchAsync(async (req, res, next) => {
   //check if user has inputted all required fields
@@ -59,7 +60,6 @@ exports.login = catchAsync(async (req, res, next) => {
 
 exports.protect = catchAsync(async (req, res, next) => {
   const token = req.cookies?.jwt;
-
   if (!token) return next(new AppError(401, "Unauthorized, please login!"));
 
   const verified = jwt.verify(token, process.env.JWT_SECRET, (err, token) => {
@@ -78,4 +78,37 @@ exports.protect = catchAsync(async (req, res, next) => {
     );
   req.user = user;
   next();
+});
+
+exports.registerAgency = catchAsync(async (req, res, next) => {
+  if (!Agency.checkFields(req.body))
+    return next(
+      new AppError(400, "Molim vas da upišete podatke u sva obavezna polja!")
+    );
+
+  //save agency
+  const agency = await Agency.create(req.body);
+
+  //generate jwt that will be stored in cookie
+  generateJWT(agency.id, res);
+
+  return res.status(200).json({
+    status: "success",
+    message: `${agency.agencyName}, dobrodošli!`,
+  });
+});
+
+exports.loginAgency = catchAsync(async (req, res, next) => {
+  if (!req.body.email || !req.body.password)
+    return next(new AppError(400, "Molim vas unesite potrebne podatke!"));
+  const agency = await Agency.findOne({ email: req.body.email });
+  if (!agency) return next(new AppError(401, "Neispravan email/lozinka"));
+  const decrypted = await bcrypt.compare(req.body.password, agency.password);
+  if (!decrypted) return next(new AppError(401, "Neispravan email/lozinka"));
+  //generate jwt that will be stored in cookie
+  generateJWT(agency.id, res);
+  res.status(200).json({
+    status: "success",
+    message: `Uspješno ste se prijavili`,
+  });
 });
