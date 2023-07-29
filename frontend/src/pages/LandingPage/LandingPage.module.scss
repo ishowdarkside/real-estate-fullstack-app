@@ -1,0 +1,52 @@
+.landingPage {
+  height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background: linear-gradient(to right top, #292524, rgba(#57534e, 0.2)),
+    url("/landingpage.jpg");
+  background-size: cover;
+  background-position: center;
+
+  h1 {
+    font-family: var(--font-serif);
+    font-size: 8rem;
+    font-weight: 400;
+    letter-spacing: 5px;
+    color: var(--color-black-200);
+  }
+
+  h2 {
+    font-size: 2.3rem;
+    font-weight: 200;
+    color: var(--color-black-200);
+  }
+
+  div {
+    margin-top: 3rem;
+    display: flex;
+    gap: 3rem;
+
+    button {
+      padding: 1rem 2rem;
+      font-size: 1.6rem;
+      font-weight: 200;
+      cursor: pointer;
+
+      &:first-of-type {
+        background-color: transparent;
+        border: 1px solid var(--color-black-50);
+        color: var(--color-black-50);
+      }
+
+      &:last-of-type {
+        background-color: var(--color-black-800);
+        border: none;
+        outline: none;
+        color: var(--color-black-50);
+        padding: 1rem 4rem;
+      }
+    }
+  }
+}

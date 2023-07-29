@@ -35,11 +35,12 @@ exports.register = catchAsync(async (req, res, next) => {
   const user = await User.create(req.body);
 
   //generate jwt that will be stored in cookie
-  generateJWT(user.id, res);
+  const token = generateJWT(user.id, res);
 
   return res.status(200).json({
     status: "success",
     message: `${user.fullName}, dobrodošao!`,
+    token,
   });
 });
 
@@ -51,10 +52,11 @@ exports.login = catchAsync(async (req, res, next) => {
   const decrypted = await bcrypt.compare(req.body.password, user.password);
   if (!decrypted) return next(new AppError(401, "Neispravan email/lozinka"));
   //generate jwt that will be stored in cookie
-  generateJWT(user.id, res);
+  const token = generateJWT(user.id, res);
   res.status(200).json({
     status: "success",
     message: `Uspješno ste se prijavili`,
+    token,
   });
 });
 
@@ -94,11 +96,12 @@ exports.registerAgency = catchAsync(async (req, res, next) => {
   const agency = await Agency.create(req.body);
 
   //generate jwt that will be stored in cookie
-  generateJWT(agency.id, res);
+  const token = generateJWT(agency.id, res);
 
   return res.status(200).json({
     status: "success",
     message: `${agency.agencyName}, dobrodošli!`,
+    token,
   });
 });
 
@@ -110,9 +113,10 @@ exports.loginAgency = catchAsync(async (req, res, next) => {
   const decrypted = await bcrypt.compare(req.body.password, agency.password);
   if (!decrypted) return next(new AppError(401, "Neispravan email/lozinka"));
   //generate jwt that will be stored in cookie
-  generateJWT(agency.id, res);
+  const token = generateJWT(agency.id, res);
   res.status(200).json({
     status: "success",
     message: `Uspješno ste se prijavili`,
+    token,
   });
 });

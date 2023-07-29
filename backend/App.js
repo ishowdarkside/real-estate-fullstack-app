@@ -12,10 +12,14 @@ const errorMiddleware = require(path.join(
   "controllers",
   "errorController"
 ));
+const cors = require("cors");
 
 const app = express();
 
 app.use(morgan("dev"));
+
+app.use(cors());
+app.options("*", cors());
 
 //parse incoming json
 app.use(express.json());

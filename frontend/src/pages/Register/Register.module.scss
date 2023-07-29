@@ -1,0 +1,180 @@
+@import "../../styles/mixins.scss";
+.interfaceWrapper {
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to right top, #292524, rgba(#57534e, 0.2)),
+    url("/register.jpg");
+  background-size: cover;
+  background-position: center;
+  padding: 2rem;
+
+  @include responsive-custom(50em) {
+    padding: 3rem 5rem;
+  }
+}
+
+.pickModal {
+  background-color: #ffff;
+  width: 68.5rem;
+  max-width: 68.5rem;
+  border-radius: 2rem;
+  height: 50rem;
+  max-height: 50rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 7rem 1fr;
+
+  @include responsive-custom(31.25em) {
+    grid-template-columns: 1fr;
+    grid-template-rows: 7rem 1fr 1fr;
+  }
+  span {
+    grid-row: 1 / span 1;
+    grid-column: 1 / -1;
+    align-self: center;
+    justify-self: center;
+  }
+
+  div {
+    transition: all 0.3s ease;
+    cursor: pointer;
+    background-color: var(--color-black-100);
+    display: flex;
+    gap: 4rem;
+    flex-direction: column;
+
+    @include responsive-custom(31.25em) {
+      flex-direction: column-reverse;
+
+      img {
+        width: 5rem;
+      }
+      gap: 2rem;
+    }
+    span {
+      font-size: 2.5rem;
+      letter-spacing: 3px;
+      color: var(--color-black-700);
+    }
+    &:hover {
+      background-color: var(--color-black-200);
+    }
+
+    &:first-of-type {
+      grid-column: 1 / span 1;
+
+      align-items: center;
+      justify-content: center;
+      display: flex;
+      border-bottom-left-radius: 2rem;
+    }
+
+    &:last-of-type {
+      grid-column: 2 / span 1;
+
+      align-items: center;
+      justify-content: center;
+      display: flex;
+      border-bottom-right-radius: 2rem;
+
+      @include responsive-custom(31.25em) {
+        grid-column: 1 / span 1;
+        border-top: 1px solid var(--color-black-200);
+        border-bottom-left-radius: 2rem;
+      }
+    }
+  }
+}
+
+.registerForm {
+  width: 77.5rem;
+  max-width: 77.5rem;
+  background-color: rgba(#f5f5f4, 0.85);
+  padding: 3rem 4rem;
+  border-radius: 1rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 4rem;
+  row-gap: 2.5rem;
+
+  @include responsive-custom(50em) {
+    grid-template-columns: 1fr;
+  }
+  h2 {
+    font-size: 2.5rem;
+    color: #44403c;
+    font-weight: 400;
+  }
+
+  h3 {
+    font-size: 1.6rem;
+    font-weight: 400;
+  }
+
+  div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    label {
+      font-size: 1.6rem;
+      color: #44403c;
+    }
+
+    input {
+      background-color: #f5f5f4;
+      border-radius: 1rem;
+      padding: 1rem;
+      outline: none;
+      border: none;
+
+      &::placeholder {
+        color: #d6d3d1;
+      }
+    }
+
+    span {
+      color: #ef4444;
+      font-size: 1.2rem;
+    }
+  }
+
+  a {
+    color: var(--color-black-800);
+  }
+
+  button {
+    background-color: var(--color-black-700);
+    color: var(--color-black-50);
+    font-size: 1.6rem;
+    letter-spacing: 3px;
+    font-weight: 400;
+    border: none;
+    outline: none;
+    padding: 1rem;
+    border-radius: 1rem;
+    cursor: pointer;
+  }
+}
+
+.headingWrapper {
+  grid-column: 1/ -1;
+}
+
+.textareaWrapper {
+  grid-column: 1/ -1;
+
+  textarea {
+    background-color: #f5f5f4;
+    border-radius: 1rem;
+    padding: 1rem;
+    outline: none;
+    border: none;
+    resize: none;
+    height: 20rem;
+    &::placeholder {
+      color: #d6d3d1;
+    }
+  }
+}

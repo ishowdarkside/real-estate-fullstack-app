@@ -1,0 +1,23 @@
+@mixin responsive($bp) {
+  @if ($bp == "tab-land") {
+    @media only screen and (max-width: 75em) {
+      @content;
+    }
+  }
+  @if ($bp == "tab-port") {
+    @media only screen and (max-width: 56.25em) {
+      @content;
+    }
+  }
+  @if ($bp == "mobile") {
+    @media only screen and (max-width: 37.5em) {
+      @content;
+    }
+  }
+}
+
+@mixin responsive-custom($bp) {
+  @media only screen and (max-width: $bp) {
+    @content;
+  }
+}

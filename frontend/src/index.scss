@@ -1,0 +1,56 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap");
+@import "./styles/mixins.scss";
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: inherit;
+  font-family: inherit;
+}
+
+html {
+  box-sizing: border-box;
+  font-size: 62.5%; // 1rem  = 10px
+
+  @include responsive("tab-port") {
+    font-size: 56.25%; // 1rem = 9px
+  }
+
+  @include responsive("mobile") {
+    font-size: 50%; //1rem = 8px
+  }
+}
+
+body {
+  font-size: 1.6rem;
+  font-family: "Poppins", sans-serif;
+  line-height: 1.5;
+  color: var(--color-black-500);
+  font-weight: 400;
+}
+
+:root {
+  --color-black-50: #fafaf9;
+  --color-black-100: #f5f5f4;
+  --color-black-200: #e7e5e4;
+  --color-black-300: #d6d3d1;
+  --color-black-400: #a8a29e;
+  --color-black-500: #78716c;
+  --color-black-600: #57534e;
+  --color-black-700: #44403c;
+  --color-black-800: #292524;
+  --color-black-900: #1c1917;
+
+  //fonts
+  --font-serif: "Playfair Display", serif;
+}
+
+.container {
+  max-width: 120rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+// responsivem ixins
