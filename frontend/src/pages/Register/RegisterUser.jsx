@@ -2,10 +2,9 @@ import LocationSelect from "../../ui/LocationSelect/LocationSelect";
 import styles from "./Register.module.scss";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { registerUser } from "../../services/register";
-import { toast } from "react-hot-toast";
-import { useState } from "react";
+
 import Spinner from "../../ui/Spinner/Spinner";
+import { useRegisterUser } from "../../hooks/useRegisterUser";
 export default function RegisterUser() {
   const {
     register,
@@ -13,31 +12,13 @@ export default function RegisterUser() {
     formState: { errors },
   } = useForm();
 
-  const [isLoading, setIsLoading] = useState(false);
+  const { mutate, isLoading } = useRegisterUser();
   async function handleRegister(formData) {
-    try {
-      setIsLoading(true);
-      formData.phoneNumber === ""
-        ? (formData.phoneNumber = undefined)
-        : formData.phoneNumber;
-      const data = await registerUser(formData);
-      if (data.status === "success") {
-        //if successfull login, store token from response to cookie
-        let expirationDate = new Date();
-        expirationDate.setTime(
-          expirationDate.getTime() + 60 * 24 * 60 * 60 * 1000
-        );
-        let expires = "expires=" + expirationDate.toUTCString();
-        document.cookie =
-          "jwt" + "=" + data.token + "; " + expires + "; path=/";
-        toast.success(data.message);
-      }
-      if (data.status === "fail") toast.error(data.message);
-    } catch (err) {
-      toast.error(err.message);
-    } finally {
-      setIsLoading(false);
-    }
+    formData.phoneNumber === ""
+      ? (formData.phoneNumber = undefined)
+      : formData.phoneNumber;
+
+    mutate(formData);
   }
 
   if (isLoading) return <Spinner />;

@@ -41,6 +41,7 @@ exports.register = catchAsync(async (req, res, next) => {
     status: "success",
     message: `${user.fullName}, dobrodošao!`,
     token,
+    user,
   });
 });
 
@@ -119,4 +120,31 @@ exports.loginAgency = catchAsync(async (req, res, next) => {
     message: `Uspješno ste se prijavili`,
     token,
   });
+});
+
+exports.verify = catchAsync(async (req, res, next) => {
+  const token = req.headers.authorization?.split(" ")?.[1];
+  if (!token) return next(new AppError(401, "Unathorized"));
+  const verified = jwt.verify(token, process.env.JWT_SECRET, (err, token) => {
+    if (err) return next(new AppError(401, "invalid token, please login!"));
+    return token;
+  });
+
+  const [user, agency] = await Promise.all([
+    User.findById(verified.id).select("-password"),
+    Agency.findById(verified.id).select("-password"),
+  ]);
+
+  const validProfile = user || agency;
+  if (validProfile) {
+    if (validProfile.hasChangedPassword())
+      return next(
+        new AppError(401, "Password changed in meantime, please login again!")
+      );
+    res.status(200).json({
+      status: "success",
+      user: validProfile,
+    });
+  } else
+    return next(new AppError(401, "User doesn't exist anymore! Please login"));
 });
