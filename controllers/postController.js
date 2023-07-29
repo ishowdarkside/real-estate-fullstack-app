@@ -9,19 +9,26 @@ const AppError = require(path.join(__dirname, "..", "utilities", "AppError"));
 const Post = require(path.join(__dirname, "..", "models", "Post.js"));
 
 exports.createPost = catchAsync(async (req, res, next) => {
+  //dinamicki odredi poruku u slucaju da user ne providuje sprat
+  if (!req.body.sprat)
+    return next(
+      new AppError(
+        400,
+        `${
+          req.body.tipNekretnine === "kuća"
+            ? "Navedite na koliko spratova je kuća"
+            : "Navedite na kojem spratu je stan"
+        }`
+      )
+    );
   const post = await Post.create({
     creatorType: req.user.role,
     creator: req.user.id,
     ...req.body,
   });
 
-  const popularizovan = await Post.findById(post.id).populate({
-    path: "creator",
-  });
-
   return res.status(201).json({
     status: "success",
-    popularizovan,
     message: "Uspješno ste objavili oglas!",
   });
 });

@@ -1,11 +1,11 @@
 const express = require("express");
 const path = require("path");
 const router = express.Router();
-const { createPost } = require(path.join(
+const { comment, answerComment } = require(path.join(
   __dirname,
   "..",
   "controllers",
-  "postController"
+  "commentController"
 ));
 const { protect } = require(path.join(
   __dirname,
@@ -14,7 +14,7 @@ const { protect } = require(path.join(
   "authController"
 ));
 
-//za objavljivanje posta
-router.post("/createPost", protect, createPost);
+router.post("/:postId", protect, comment);
+router.post("/answer/:commentId", protect, answerComment);
 
 module.exports = router;

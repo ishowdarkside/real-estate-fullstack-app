@@ -20,6 +20,9 @@ const agencySchema = new mongoose.Schema(
         message: "Ime kontakt osobe može sadržavati samo karaktere",
       },
     },
+    about: {
+      type: String,
+    },
     email: {
       type: "string",
       unique: [true, "Uneseni email je već u upotrebi."],

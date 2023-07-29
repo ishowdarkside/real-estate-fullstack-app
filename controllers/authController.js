@@ -69,7 +69,7 @@ exports.protect = catchAsync(async (req, res, next) => {
 
   const [user, agency] = await Promise.all([
     User.findById(verified.id).select("-password"),
-    Agency.findById(verified.id),
+    Agency.findById(verified.id).select("-password"),
   ]);
 
   const validProfile = user || agency;
