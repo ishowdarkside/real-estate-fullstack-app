@@ -27,7 +27,11 @@ const postSchema = new mongoose.Schema(
       required: [true, "Unesite opis vaše objave"],
       minlength: [10, "Opis mora sadržavati bar 10 karaktera"],
     },
-    imgs: [{ type: String }],
+    imgs: [
+      {
+        type: String,
+      },
+    ],
     location: {
       type: "string",
       required: [true, "Molim vas označite gdje je objekat lociran"],

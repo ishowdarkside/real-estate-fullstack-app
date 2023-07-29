@@ -13,8 +13,10 @@ const { protect } = require(path.join(
   "controllers",
   "authController"
 ));
+const multer = require("multer");
+const upload = multer({ storage: multer.memoryStorage() });
 
 //za objavljivanje posta
-router.post("/createPost", protect, createPost);
+router.post("/createPost", protect, upload.array("photos", 7), createPost);
 
 module.exports = router;

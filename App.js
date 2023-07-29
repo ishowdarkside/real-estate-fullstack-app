@@ -23,6 +23,9 @@ app.use(express.json());
 //parse incoming cookies
 app.use(cookieParser());
 
+//serve static files
+app.use(express.static(path.join(__dirname, "public")));
+
 //Using User Router for authentication
 app.use("/api/auth", userRouter);
 
