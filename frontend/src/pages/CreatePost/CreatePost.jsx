@@ -6,6 +6,7 @@ import LocationSelect from "../../ui/LocationSelect/LocationSelect";
 import { toast } from "react-hot-toast";
 import { useCreatePost } from "../../hooks/useCreatePost";
 import Spinner from "../../ui/Spinner/Spinner";
+import Map from "./Map";
 
 export default function CreatePost() {
   const [type, setType] = useState(null);
@@ -43,18 +44,18 @@ function Form({ type }) {
   const {
     register,
     handleSubmit,
-
     formState: { errors },
   } = useForm();
+
   const [novogradnja, setNovogradnja] = useState(null);
   const [namjesten, setNamjesten] = useState(null);
   const [garage, setGarage] = useState(null);
   const [indexed, setIndexed] = useState(null);
+  const [location, setLocation] = useState("");
 
   const { mutate, isLoading } = useCreatePost();
 
-  async function handlePost(data) {
-    data.tipNekretnine = type;
+  function handlePost(data) {
     if (
       novogradnja === null ||
       namjesten === null ||
@@ -62,17 +63,19 @@ function Form({ type }) {
       indexed === null
     )
       return toast.error("Popunite sva polja!");
+
     data.novogradnja = novogradnja;
+    data.tipNekretnine = type;
     data.namjesten = namjesten;
     data.garage = garage;
     data.indexed = indexed;
+    data.location = location;
 
     const formData = new FormData();
     const filesArray = Array.from(data.photos);
     data.photos = undefined;
     Object.entries(data).forEach((e) => formData.append(e[0], e[1]));
     filesArray.forEach((file) => formData.append("photos", file));
-
     mutate(formData);
   }
 
@@ -142,9 +145,10 @@ function Form({ type }) {
           <span className={styles.errorMsg}>{errors.photos.message}</span>
         )}
       </div>
+      <Map />
       <div className={styles.location}>
         <label htmlFor="location">LOKACIJA</label>
-        <LocationSelect register={register} />
+        <LocationSelect setterFunc={setLocation} location={location} />
       </div>
       <div className={styles.novogradnja}>
         <span>NOVOGRADNJA</span>
@@ -297,5 +301,32 @@ function Form({ type }) {
       </div>
       <button className={styles.postBtn}>OBJAVI OGLAS</button>
     </form>
+  );
+}
+
+function InputBundle({
+  label,
+  placeholderStan,
+  placeholderKuca,
+  register,
+  isRequired,
+  type,
+  errors,
+}) {
+  return (
+    <div className={styles.label}>
+      <label htmlFor="label">NASLOV</label>
+      <input
+        type="text"
+        placeholder={type === "stan" ? placeholderStan : placeholderKuca}
+        {...register(label, {
+          required: isRequired ? "Unesite naslov vaše objave" : false,
+        })}
+        name="title"
+      />
+      {errors.label?.message && (
+        <span className={styles.errorMsg}> {errors.label.message}</span>
+      )}
+    </div>
   );
 }

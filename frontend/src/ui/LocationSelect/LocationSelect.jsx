@@ -52,17 +52,33 @@ const towns = [
   "neum",
 ];
 import styles from "./LocationSelect.module.scss";
-export default function LocationSelect({ register }) {
-  return (
-    <select
-      className={styles.select}
-      {...register("location", { required: "Unesite vašu lokaciju" })}
-    >
-      {towns.map((town, i) => (
-        <option value={town} key={i}>
-          {town[0].toUpperCase() + town.slice(1)}
-        </option>
-      ))}
-    </select>
-  );
+export default function LocationSelect({ register, setterFunc, location }) {
+  if (register)
+    return (
+      <select
+        className={styles.select}
+        {...register("location", { required: "Unesite vašu lokaciju" })}
+      >
+        {towns.map((town, i) => (
+          <option value={town} key={i}>
+            {town[0].toUpperCase() + town.slice(1)}
+          </option>
+        ))}
+      </select>
+    );
+
+  if (setterFunc)
+    return (
+      <select
+        className={styles.select}
+        onChange={(e) => setterFunc(e.target.value)}
+        defaultValue={location}
+      >
+        {towns.map((town, i) => (
+          <option value={town} key={i}>
+            {town[0].toUpperCase() + town.slice(1)}
+          </option>
+        ))}
+      </select>
+    );
 }
