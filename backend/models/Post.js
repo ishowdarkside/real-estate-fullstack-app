@@ -137,6 +137,11 @@ const postSchema = new mongoose.Schema(
         answer: { type: String },
       },
     ],
+
+    coords: {
+      type: [String],
+      required: [true, "Označite na mapi gdje se nalazi vaš objekat"],
+    },
   },
   { timestamps: true }
 );

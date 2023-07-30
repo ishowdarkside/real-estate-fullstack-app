@@ -72,7 +72,7 @@ export default function LocationSelect({ register, setterFunc, location }) {
       <select
         className={styles.select}
         onChange={(e) => setterFunc(e.target.value)}
-        defaultValue={location}
+        value={location}
       >
         {towns.map((town, i) => (
           <option value={town} key={i}>

@@ -7,6 +7,7 @@ import { toast } from "react-hot-toast";
 import { useCreatePost } from "../../hooks/useCreatePost";
 import Spinner from "../../ui/Spinner/Spinner";
 import Map from "./Map";
+import { usePositionContext } from "../../context/PositionContext";
 
 export default function CreatePost() {
   const [type, setType] = useState(null);
@@ -51,7 +52,8 @@ function Form({ type }) {
   const [namjesten, setNamjesten] = useState(null);
   const [garage, setGarage] = useState(null);
   const [indexed, setIndexed] = useState(null);
-  const [location, setLocation] = useState("");
+  const [location, setLocation] = useState("tuzla");
+  const { position: coordinates } = usePositionContext();
 
   const { mutate, isLoading } = useCreatePost();
 
@@ -64,6 +66,9 @@ function Form({ type }) {
     )
       return toast.error("Popunite sva polja!");
 
+    if (coordinates.length === 0)
+      return toast.error("Označite na mapi gdje se nalazi vaš objekat");
+    data.coords = [...coordinates];
     data.novogradnja = novogradnja;
     data.tipNekretnine = type;
     data.namjesten = namjesten;
@@ -145,7 +150,7 @@ function Form({ type }) {
           <span className={styles.errorMsg}>{errors.photos.message}</span>
         )}
       </div>
-      <Map />
+      <Map location={location} />
       <div className={styles.location}>
         <label htmlFor="location">LOKACIJA</label>
         <LocationSelect setterFunc={setLocation} location={location} />
@@ -301,32 +306,5 @@ function Form({ type }) {
       </div>
       <button className={styles.postBtn}>OBJAVI OGLAS</button>
     </form>
-  );
-}
-
-function InputBundle({
-  label,
-  placeholderStan,
-  placeholderKuca,
-  register,
-  isRequired,
-  type,
-  errors,
-}) {
-  return (
-    <div className={styles.label}>
-      <label htmlFor="label">NASLOV</label>
-      <input
-        type="text"
-        placeholder={type === "stan" ? placeholderStan : placeholderKuca}
-        {...register(label, {
-          required: isRequired ? "Unesite naslov vaše objave" : false,
-        })}
-        name="title"
-      />
-      {errors.label?.message && (
-        <span className={styles.errorMsg}> {errors.label.message}</span>
-      )}
-    </div>
   );
 }
