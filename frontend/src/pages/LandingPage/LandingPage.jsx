@@ -12,7 +12,7 @@ export default function LandingPage() {
       <h1>Mojdom</h1>
       <h2>Vaša savršena nekretnina, na dohvat ruke.</h2>
       <div>
-        <button>POGLEDAJ OGLASE</button>
+        <button onClick={() => navigate("/app")}>POGLEDAJ OGLASE</button>
         <button onClick={() => navigate("/register")}>REGISTRUJ SE</button>
       </div>
     </div>

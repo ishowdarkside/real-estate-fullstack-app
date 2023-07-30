@@ -61,6 +61,7 @@ const agencySchema = new mongoose.Schema(
     website: {
       type: "string",
     },
+    posts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Post" }],
   },
   { timestamps: true }
 );

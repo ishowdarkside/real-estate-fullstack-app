@@ -8,6 +8,7 @@ import { Toaster } from "react-hot-toast";
 import AppLayout from "./ui/AppLayout/AppLayout";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import ProtectRoute from "./ui/ProtectRoute";
+import CreatePost from "./pages/CreatePost/CreatePost";
 
 const queryClient = new QueryClient();
 export default function App() {
@@ -21,11 +22,12 @@ export default function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/app" element={<AppLayout />}>
               <Route index element={<Navigate replace to="dashboard" />} />
+              <Route path="dashboard" element={<Dashboard />} />
               <Route
-                path="dashboard"
+                path="create-post"
                 element={
                   <ProtectRoute>
-                    <Dashboard />
+                    <CreatePost />
                   </ProtectRoute>
                 }
               />

@@ -1,3 +1,4 @@
+@import "../../styles/mixins.scss";
 .landingPage {
   height: 100dvh;
   display: flex;
@@ -9,6 +10,9 @@
   background-size: cover;
   background-position: center;
 
+  @include responsive-custom(26.87em) {
+    padding: 4rem;
+  }
   h1 {
     font-family: var(--font-serif);
     font-size: 8rem;
@@ -21,17 +25,25 @@
     font-size: 2.3rem;
     font-weight: 200;
     color: var(--color-black-200);
+    text-align: center;
   }
 
   div {
     margin-top: 3rem;
     display: flex;
     gap: 3rem;
-
+    @include responsive-custom(26.87em) {
+      flex-direction: column;
+      width: 100%;
+      gap: 1rem;
+    }
     button {
       padding: 1rem 2rem;
       font-size: 1.6rem;
       font-weight: 200;
+      @include responsive-custom(26.87em) {
+        flex-grow: 1;
+      }
       cursor: pointer;
 
       &:first-of-type {

@@ -70,7 +70,7 @@ exports.login = catchAsync(async (req, res, next) => {
 });
 
 exports.protect = catchAsync(async (req, res, next) => {
-  const token = req.cookies?.jwt;
+  const token = req.cookies?.jwt || req.headers.authorization?.split(" ")?.[1];
   if (!token) return next(new AppError(401, "Unauthorized, please login!"));
 
   const verified = jwt.verify(token, process.env.JWT_SECRET, (err, token) => {

@@ -6,6 +6,7 @@ import Spinner from "./Spinner/Spinner";
 export default function ProtectRoute({ children }) {
   const navigate = useNavigate();
   const { data, isLoading } = useCurrUser();
+
   useEffect(() => {
     if (!data && !isLoading) return navigate("/login");
   }, [data, isLoading, navigate]);

@@ -12,6 +12,7 @@ export async function protect() {
       },
     });
     const data = await res.json();
+
     return data.user;
   } catch (err) {
     throw new Error(err);
