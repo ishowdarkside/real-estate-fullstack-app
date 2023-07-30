@@ -1,11 +1,10 @@
 import LocationSelect from "../../ui/LocationSelect/LocationSelect";
 import styles from "./Register.module.scss";
-import { Link, useNavigate } from "react-router-dom";
-import { registerAgency } from "../../services/register";
+import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Spinner from "../../ui/Spinner/Spinner";
-import { toast } from "react-hot-toast";
-import { useState } from "react";
+import { useRegisterAgency } from "../../hooks/useRegisterAgency";
+
 export default function RegisterAgency() {
   const {
     register,
@@ -13,29 +12,13 @@ export default function RegisterAgency() {
     formState: { errors },
   } = useForm();
 
-  const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate();
-  async function handleRegister(formData) {
-    try {
-      setIsLoading(true);
-      const res = await registerAgency(formData);
-      if (res.status === "success") {
-        toast.success(res.message);
-        navigate("/app");
-      }
-      if (res.status === "fail") toast.error(res.message);
-    } catch (err) {
-      toast.error(err.message);
-    } finally {
-      setIsLoading(false);
-    }
-  }
+  const { mutate, isLoading } = useRegisterAgency();
 
   if (isLoading) return <Spinner />;
   return (
     <form
       className={styles.registerForm}
-      onSubmit={handleSubmit((data) => handleRegister(data))}
+      onSubmit={handleSubmit((data) => mutate(data))}
     >
       <div className={styles.headingWrapper}>
         <h2>Registracija agencije</h2>

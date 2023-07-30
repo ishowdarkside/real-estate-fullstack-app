@@ -1,6 +1,11 @@
+import { usePreventAccess } from "../../hooks/usePreventAccess";
+import Spinner from "../../ui/Spinner/Spinner";
 import styles from "./Login.module.scss";
 import { Link } from "react-router-dom";
 export default function Login() {
+  const isLoading = usePreventAccess();
+
+  if (isLoading) return <Spinner />;
   return (
     <div className={styles.interfaceWrapper}>
       <form className={styles.loginForm}>

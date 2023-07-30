@@ -1,17 +1,18 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { registerUser } from "../services/register";
-import { useNavigate } from "react-router-dom";
+import { registerAgency } from "../services/register";
 import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 import { storeCookie } from "../services/storeCookie";
-export function useRegisterUser() {
-  const queryClient = useQueryClient();
+export function useRegisterAgency() {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const { mutate, isLoading } = useMutation({
-    mutationFn: (data) => registerUser(data),
+    mutationFn: (data) => registerAgency(data),
     onSuccess: (res) => {
       if (res.status === "success") {
-        //cache user
+        //cache agency
         queryClient.setQueriesData(["user"], res.user);
+        //store token in cookie
         storeCookie(res.token);
         toast.success(res.message);
         navigate("/app");
@@ -20,8 +21,6 @@ export function useRegisterUser() {
         toast.error(res.message);
       }
     },
-    onError: (err) => toast.error(err.message),
   });
-
   return { mutate, isLoading };
 }

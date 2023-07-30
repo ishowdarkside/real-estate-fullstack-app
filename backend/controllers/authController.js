@@ -103,6 +103,7 @@ exports.registerAgency = catchAsync(async (req, res, next) => {
     status: "success",
     message: `${agency.agencyName}, dobrodošli!`,
     token,
+    agency,
   });
 });
 
@@ -136,15 +137,14 @@ exports.verify = catchAsync(async (req, res, next) => {
   ]);
 
   const validProfile = user || agency;
-  if (validProfile) {
-    if (validProfile.hasChangedPassword())
-      return next(
-        new AppError(401, "Password changed in meantime, please login again!")
-      );
-    res.status(200).json({
-      status: "success",
-      user: validProfile,
-    });
-  } else
+  if (!validProfile)
     return next(new AppError(401, "User doesn't exist anymore! Please login"));
+  if (validProfile.hasChangedPassword())
+    return next(
+      new AppError(401, "Password changed in meantime, please login again!")
+    );
+  res.status(200).json({
+    status: "success",
+    user: validProfile,
+  });
 });

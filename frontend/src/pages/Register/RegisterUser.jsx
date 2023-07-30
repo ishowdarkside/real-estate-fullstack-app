@@ -13,19 +13,12 @@ export default function RegisterUser() {
   } = useForm();
 
   const { mutate, isLoading } = useRegisterUser();
-  async function handleRegister(formData) {
-    formData.phoneNumber === ""
-      ? (formData.phoneNumber = undefined)
-      : formData.phoneNumber;
-
-    mutate(formData);
-  }
 
   if (isLoading) return <Spinner />;
   return (
     <form
       className={styles.registerForm}
-      onSubmit={handleSubmit((data) => handleRegister(data))}
+      onSubmit={handleSubmit((data) => mutate(data))}
     >
       <div className={styles.headingWrapper}>
         <h2>Registracija</h2>
