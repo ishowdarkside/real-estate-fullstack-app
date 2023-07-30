@@ -41,19 +41,27 @@ exports.register = catchAsync(async (req, res, next) => {
     status: "success",
     message: `${user.fullName}, dobrodošao!`,
     token,
-    user,
   });
 });
 
 exports.login = catchAsync(async (req, res, next) => {
   if (!req.body.email || !req.body.password)
     return next(new AppError(400, "Molim vas unesite potrebne podatke!"));
-  const user = await User.findOne({ email: req.body.email });
-  if (!user) return next(new AppError(401, "Neispravan email/lozinka"));
-  const decrypted = await bcrypt.compare(req.body.password, user.password);
+  const [user, agency] = await Promise.all([
+    User.findOne({ email: req.body.email }),
+    Agency.findOne({ email: req.body.email }),
+  ]);
+
+  const validProfile = user || agency;
+  if (!validProfile) return next(new AppError(401, "Neispravan email/lozinka"));
+
+  const decrypted = await bcrypt.compare(
+    req.body.password,
+    validProfile.password
+  );
   if (!decrypted) return next(new AppError(401, "Neispravan email/lozinka"));
   //generate jwt that will be stored in cookie
-  const token = generateJWT(user.id, res);
+  const token = generateJWT(validProfile.id, res);
   res.status(200).json({
     status: "success",
     message: `Uspješno ste se prijavili`,
@@ -103,7 +111,6 @@ exports.registerAgency = catchAsync(async (req, res, next) => {
     status: "success",
     message: `${agency.agencyName}, dobrodošli!`,
     token,
-    agency,
   });
 });
 
