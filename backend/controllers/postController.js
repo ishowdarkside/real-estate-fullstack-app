@@ -85,12 +85,16 @@ exports.queryPosts = catchAsync(async (req, res, next) => {
     vrstaOglasa,
     location,
     page = 1,
+    search,
   } = req.query;
   const filters = {};
   const skip = page * 9 - 9;
   if (pricegte) filters.price = { $gte: pricegte };
   if (pricelte) filters.price = { $lte: pricegte };
-
+  if (search) {
+    const regex = new RegExp(search, "i");
+    filters.title = regex;
+  }
   if (pricegte && pricelte) {
     filters.$and = [
       { price: { $gte: pricegte } },
@@ -103,11 +107,16 @@ exports.queryPosts = catchAsync(async (req, res, next) => {
   if (vrstaOglasa) filters.vrstaOglasa = vrstaOglasa;
   if (location) filters.location = location;
 
+  const totalPosts = await Post.find(filters);
   const posts = await Post.find(filters)
     .limit(9)
     .skip(skip)
     .sort({ createdAt: -1 });
+
+  const totalShown = skip * 2 || 9;
   return res.status(200).json({
     posts,
+    total: totalPosts.length,
+    left: totalPosts.length - totalShown,
   });
 });

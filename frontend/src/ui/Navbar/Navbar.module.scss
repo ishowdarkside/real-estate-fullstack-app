@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--color-black-700);
+  background: var(--color-black-800);
   height: 8rem;
 }
 .navContainer {
@@ -29,6 +29,7 @@
     text-decoration: none;
     color: var(--color-black-200);
     display: flex;
+    font-weight: 300;
     align-items: center;
     gap: 0.6rem;
     justify-content: center;

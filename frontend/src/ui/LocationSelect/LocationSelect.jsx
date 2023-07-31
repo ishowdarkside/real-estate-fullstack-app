@@ -57,6 +57,7 @@ export default function LocationSelect({
   setterFunc,
   location,
   bgColor,
+  includeAll,
 }) {
   if (register)
     return (
@@ -65,6 +66,11 @@ export default function LocationSelect({
         className={styles.select}
         {...register("location", { required: "Unesite vašu lokaciju" })}
       >
+        {includeAll && (
+          <option value="remove" key="includeAll">
+            Sve
+          </option>
+        )}
         {towns.map((town, i) => (
           <option value={town} key={i}>
             {town[0].toUpperCase() + town.slice(1)}

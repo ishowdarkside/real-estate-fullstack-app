@@ -1,7 +1,9 @@
 const BASE_URL = `http://127.0.0.1:8000/api`;
 export async function getPosts() {
+  const queryString = window.location.search;
+  queryString.replace("sve", "");
   try {
-    const res = await fetch(`${BASE_URL}/posts`);
+    const res = await fetch(`${BASE_URL}/posts${queryString}`);
     const data = res.json();
     return data;
   } catch (err) {

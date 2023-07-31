@@ -22,10 +22,14 @@
 }
 
 .postContainer {
+  padding: 5rem;
   margin-top: 4rem;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
-  gap: 5rem;
+  background-color: var(--color-black-100);
+  border-radius: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(30rem, 34.5rem));
+
+  gap: 3rem;
 }
 
 .postInfo {
@@ -50,4 +54,32 @@
   font-size: 2.5rem;
   font-weight: 400;
   color: var(--color-black-700);
+}
+
+.pagination {
+  grid-column: 1 / -1;
+
+  justify-self: end;
+
+  display: flex;
+  gap: 2rem;
+
+  button {
+    padding: 1rem 2rem;
+    border-radius: 1rem;
+    outline: none;
+    border: none;
+    background-color: var(--color-black-50);
+    color: var(--color-black-700);
+    border: 1px solid var(--color-black-700);
+  }
+}
+
+.activePage {
+  background-color: #57534e !important;
+  color: var(--color-black-50) !important;
+}
+
+.results {
+  grid-column: 1 / -1;
 }
