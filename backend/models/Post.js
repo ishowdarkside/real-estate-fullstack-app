@@ -14,18 +14,22 @@ const postSchema = new mongoose.Schema(
       type: "string",
       required: [true, "Upišite naslov vaše objave"],
       minlength: [8, "Naslov mora sadržavati bar 8 karaktera"],
-      maxlength: [30, "Naslov može sadržavati samo 30 karaktera"],
+      maxlength: [90, "Naslov može sadržavati samo 60 karaktera"],
     },
     subtitle: {
       type: "string",
       required: [true, "Upišite podnaslov vaše objave"],
       minlength: [8, "Podnaslov mora sadržavati bar 8 karaktera"],
-      maxlength: [30, "Podnaslov može sadržavati samo 30 karaktera"],
+      maxlength: [90, "Podnaslov može sadržavati samo 60 karaktera"],
     },
     description: {
       type: "string",
       required: [true, "Unesite opis vaše objave"],
       minlength: [10, "Opis mora sadržavati bar 10 karaktera"],
+    },
+    price: {
+      type: Number,
+      required: [true, "Unesite cijenu vaše nekretnine"],
     },
     imgs: [
       {

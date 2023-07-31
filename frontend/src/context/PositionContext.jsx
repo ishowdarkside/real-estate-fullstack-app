@@ -1,4 +1,7 @@
 /* eslint-disable react/prop-types */
+
+//KONTEKST koji se koristi kod odredjivanja pozicije markera kod kreiranja objave
+//koriscen je na 3 razlicita mjesta
 import { createContext, useContext, useState } from "react";
 
 const context = createContext();

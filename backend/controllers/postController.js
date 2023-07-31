@@ -76,3 +76,38 @@ exports.createPost = catchAsync(async (req, res, next) => {
     message: "Uspješno ste objavili oglas!",
   });
 });
+
+exports.queryPosts = catchAsync(async (req, res, next) => {
+  const {
+    pricegte,
+    pricelte,
+    tipNekretnine,
+    vrstaOglasa,
+    location,
+    page = 1,
+  } = req.query;
+  const filters = {};
+  const skip = page * 9 - 9;
+  if (pricegte) filters.price = { $gte: pricegte };
+  if (pricelte) filters.price = { $lte: pricegte };
+
+  if (pricegte && pricelte) {
+    filters.$and = [
+      { price: { $gte: pricegte } },
+      { price: { $lte: pricelte } },
+    ];
+
+    delete filters.price;
+  }
+  if (tipNekretnine) filters.tipNekretnine = tipNekretnine;
+  if (vrstaOglasa) filters.vrstaOglasa = vrstaOglasa;
+  if (location) filters.location = location;
+
+  const posts = await Post.find(filters)
+    .limit(9)
+    .skip(skip)
+    .sort({ createdAt: -1 });
+  return res.status(200).json({
+    posts,
+  });
+});

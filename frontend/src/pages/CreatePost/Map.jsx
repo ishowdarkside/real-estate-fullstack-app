@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
+import { usePositionContext } from "../../context/PositionContext";
 import {
   MapContainer,
   TileLayer,
@@ -7,11 +8,10 @@ import {
   useMap,
   useMapEvents,
 } from "react-leaflet";
-
 import L from "leaflet";
 import styles from "./Map.module.scss";
 import Spinner from "../../ui/Spinner/Spinner";
-import { usePositionContext } from "../../context/PositionContext";
+
 const API_KEY = "499aa460ff694d72b941ea6ccb06e158";
 const URL = "https://api.opencagedata.com/geocode/v1/json";
 
@@ -32,13 +32,13 @@ export default function Map({ location }) {
     getCoords();
   }, [location]);
 
-  //registering click on map to save in database as location (kasnije prebacit state u parent - child to parent communication)
+  //registering click on map to save in database as location (kasnije prebacit state u parent - child to parent communication) - Context jos bolje
   const { position: clickPosition } = usePositionContext();
 
   if (!position.lat) return <Spinner />;
   return (
     <div className={styles.mapContainer}>
-      <span>Označite na mapi gdje se nalazi vaš objekat</span>
+      <span className={styles.mapLabel}>Označite na mapi gdje se nalazi vaš objekat</span>
       <div id="map">
         <MapContainer
           center={[position?.lat, position?.lng]}

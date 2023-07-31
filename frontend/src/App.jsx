@@ -10,6 +10,7 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import ProtectRoute from "./ui/ProtectRoute";
 import CreatePost from "./pages/CreatePost/CreatePost";
 import PositionContext from "./context/PositionContext";
+import Catalog from "./pages/Catalog/Catalog";
 
 const queryClient = new QueryClient();
 export default function App() {
@@ -34,6 +35,7 @@ export default function App() {
                   </ProtectRoute>
                 }
               />
+              <Route path="catalog" element={<Catalog />} />
             </Route>
           </Routes>
         </BrowserRouter>

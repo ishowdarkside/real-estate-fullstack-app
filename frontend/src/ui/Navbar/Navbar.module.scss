@@ -2,8 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #fafaf9;
-  box-shadow: 0px 1px 8px rgba(#44403c, 0.4);
+  background: var(--color-black-700);
   height: 8rem;
 }
 .navContainer {
@@ -23,12 +22,12 @@
   h1 {
     font-family: var(--font-serif);
     font-size: 3.5rem;
-    color: #44403c;
+    color: var(--color-black-200);
   }
 
   a {
     text-decoration: none;
-    color: #44403c;
+    color: var(--color-black-200);
     display: flex;
     align-items: center;
     gap: 0.6rem;
@@ -36,22 +35,22 @@
   }
 
   :global(.active) {
-    color: #292524;
+    color: var(--color-black-50);
     font-weight: 500;
   }
 }
 
 .navLogin {
   padding: 0.5rem 1rem;
-  border: 1px solid var(--color-black-600);
-  color: var(--color-black-600);
+  border: 1px solid var(--color-black-200);
+  color: var(--color-black-200);
   background-color: transparent;
   cursor: pointer;
   transition: all 0.3s ease;
   border-radius: 5rem;
 
   &:hover {
-    background-color: var(--color-black-600);
-    color: var(--color-black-50);
+    background-color: var(--color-black-200);
+    color: var(--color-black-700);
   }
 }

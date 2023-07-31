@@ -52,10 +52,16 @@ const towns = [
   "neum",
 ];
 import styles from "./LocationSelect.module.scss";
-export default function LocationSelect({ register, setterFunc, location }) {
+export default function LocationSelect({
+  register,
+  setterFunc,
+  location,
+  bgColor,
+}) {
   if (register)
     return (
       <select
+        style={bgColor && { backgroundColor: `var(--color-black-200)` }}
         className={styles.select}
         {...register("location", { required: "Unesite vašu lokaciju" })}
       >
@@ -70,6 +76,7 @@ export default function LocationSelect({ register, setterFunc, location }) {
   if (setterFunc)
     return (
       <select
+        style={bgColor && { backgroundColor: `var(--color-black-200)` }}
         className={styles.select}
         onChange={(e) => setterFunc(e.target.value)}
         value={location}

@@ -27,7 +27,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 //serve static files
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "public", "uploads")));
 
 //Using User Router for authentication
 app.use("/api/auth", userRouter);

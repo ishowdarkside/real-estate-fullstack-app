@@ -1,0 +1,20 @@
+.searchWrapper {
+  position: relative;
+
+  img {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 10px;
+  }
+
+  input {
+    padding: 1rem;
+    padding-left: 5rem;
+    width: 100%;
+    background-color: var(--color-black-100);
+    outline: none;
+    border: none;
+    border-radius: 1rem;
+  }
+}

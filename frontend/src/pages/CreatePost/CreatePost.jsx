@@ -92,7 +92,7 @@ function Form({ type }) {
       encType="multipart/form-data"
     >
       <div className={styles.title}>
-        <label htmlFor="title">NASLOV</label>
+        <label htmlFor="title">Naslov</label>
         <input
           type="text"
           placeholder={
@@ -106,7 +106,7 @@ function Form({ type }) {
         )}
       </div>
       <div className={styles.subtitle}>
-        <label htmlFor="subtitle">PODNASLOV</label>
+        <label htmlFor="subtitle">Podnaslov</label>
         <input
           type="text"
           placeholder={
@@ -153,7 +153,11 @@ function Form({ type }) {
       <Map location={location} />
       <div className={styles.location}>
         <label htmlFor="location">LOKACIJA</label>
-        <LocationSelect setterFunc={setLocation} location={location} />
+        <LocationSelect
+          setterFunc={setLocation}
+          location={location}
+          bgColor="gray"
+        />
       </div>
       <div className={styles.novogradnja}>
         <span>NOVOGRADNJA</span>
@@ -302,6 +306,22 @@ function Form({ type }) {
         />
         {errors.kvadrata?.message && (
           <span className={styles.errorMsg}>{errors.kvadrata.message}</span>
+        )}
+      </div>
+      <div>
+        <label htmlFor="price">CIJENA </label>
+        <input
+          type="number"
+          placeholder="KM"
+          {...register("price", {
+            required: `Unesite cijenu  ${
+              type === "stan" ? "vašeg stana" : "vaše kuće"
+            }`,
+          })}
+          name="price"
+        />
+        {errors.price?.message && (
+          <span className={styles.errorMsg}>{errors.price.message}</span>
         )}
       </div>
       <button className={styles.postBtn}>OBJAVI OGLAS</button>

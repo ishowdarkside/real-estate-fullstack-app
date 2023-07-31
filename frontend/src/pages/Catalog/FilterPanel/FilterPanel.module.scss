@@ -1,0 +1,54 @@
+.filterPanel {
+  background-color: var(--color-black-100);
+  margin-top: 4rem;
+  border-radius: 1rem;
+  padding: 2rem;
+}
+
+.form {
+  display: flex;
+  margin-top: 2rem;
+  width: 100%;
+  justify-content: space-between;
+  div {
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
+
+    input {
+      background-color: var(--color-black-200);
+      border: none;
+      outline: none;
+      padding: 0.5rem;
+      border-radius: 1rem;
+    }
+
+    select {
+      background-color: var(--color-black-200);
+      border-radius: 1rem;
+      padding: 0.5rem;
+      outline: none;
+      border: none;
+
+      &::placeholder {
+        color: #d6d3d1;
+      }
+    }
+  }
+  button {
+    outline: none;
+    border: none;
+    background-color: var(--color-black-700);
+    color: var(--color-black-50);
+    align-self: flex-end;
+    padding: 1rem 2rem;
+    border-radius: 5rem;
+    cursor: pointer;
+  }
+}
+
+.priceWrapper {
+  flex-direction: row !important;
+  gap: 5px;
+  justify-content: flex-end;
+}
