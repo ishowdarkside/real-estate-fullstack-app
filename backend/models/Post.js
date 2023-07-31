@@ -133,12 +133,8 @@ const postSchema = new mongoose.Schema(
     },
     comments: [
       {
-        comment: {
-          type: String,
-        },
-        //ne bi trebale agencije da pisu komentare, samo useri
-        creator: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-        answer: { type: String },
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Comment",
       },
     ],
 

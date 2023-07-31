@@ -1,0 +1,123 @@
+.commentsPanel {
+  grid-column: 1 / -1;
+  background-color: var(--color-black-200);
+  border-radius: 1rem;
+  padding: 2rem;
+}
+
+.form {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+
+  input {
+    padding: 2rem 1rem;
+    border-radius: 1rem;
+    border: none;
+    outline: none;
+    background-color: var(--color-black-100);
+    border: 1px solid var(--color-black-300);
+  }
+
+  button {
+    align-self: flex-end;
+    margin-top: 2rem;
+    border: none;
+    outline: none;
+    background-color: var(--color-black-600);
+    color: var(--color-black-50);
+    padding: 1rem 2rem;
+    border-radius: 5rem;
+  }
+}
+
+.questionUser {
+  background-color: var(--color-black-50);
+  padding: 1rem;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+  width: fit-content;
+  display: flex;
+  border-bottom: 1px solid var(--color-black-200);
+  gap: 3rem;
+  align-items: center;
+  span:last-of-type {
+    font-size: 1.2rem;
+    padding: 0.3rem 0.5rem;
+    border-radius: 100px;
+    background-color: var(--color-black-200);
+  }
+}
+
+.question {
+  padding: 2rem 1rem;
+  background-color: var(--color-black-50);
+  border-top-right-radius: 1rem;
+  color: var(--color-black-500);
+  border-top-left-radius: none;
+  border-bottom-right-radius: 1rem;
+  border-bottom-left-radius: 1rem;
+}
+
+.questionsWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 6rem;
+}
+
+.answerForm {
+  display: flex;
+  flex-direction: column;
+  margin-top: 2rem;
+
+  button {
+    align-self: flex-end;
+    padding: 1rem;
+    border: none;
+    outline: none;
+    background-color: var(--color-black-700);
+    color: var(--color-black-50);
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+  }
+
+  input {
+    padding: 2rem 1rem;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+    background-color: var(--color-black-600);
+    color: var(--color-black-50);
+    outline: none;
+    border: none;
+    &::placeholder {
+      color: var(--color-black-50);
+    }
+  }
+}
+
+.answer {
+  background-color: var(--color-black-100);
+  padding: 2rem;
+  border-radius: 1rem;
+  text-align: right;
+}
+
+.answerWrapper {
+  text-align: right;
+  span {
+    background-color: var(--color-black-100);
+    padding: 1rem 2rem 1rem 2rem;
+    font-style: italic;
+    border-top-right-radius: 1rem;
+    border-top-left-radius: 1rem;
+  }
+  margin-top: 2rem;
+}
+
+.questionCount {
+  margin-bottom: 4rem;
+  display: block;
+}

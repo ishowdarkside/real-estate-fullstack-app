@@ -32,12 +32,15 @@ exports.comment = catchAsync(async (req, res, next) => {
       new AppError(400, "Ne možete postavljati javna pitanja na svoje objave!")
     );
 
-  await Comment.create({
+  const newComm = await Comment.create({
     post: post.id,
     creator: req.user.id,
     creatorType: req.user.role,
     comment,
   });
+
+  post.comments.push(newComm.id);
+  await post.save({ validateBeforeSave: false });
   res.status(201).json({
     status: "success",
     message: "Uspješno ste objavili javni komentar!",

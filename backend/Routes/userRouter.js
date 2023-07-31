@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const path = require("path");
+
 const { register, login, registerAgency, verify } = require(path.join(
   __dirname,
   "..",

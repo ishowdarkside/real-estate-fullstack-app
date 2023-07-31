@@ -6,6 +6,7 @@ import styles from "./Catalog.module.scss";
 import FilterPanel from "./FilterPanel/FilterPanel";
 import SearchPanel from "./SearchPanel/SearchPanel";
 import { usePaginatePosts } from "../../hooks/usePaginatePosts";
+import { useNavigate } from "react-router-dom";
 export default function Catalog() {
   const { data, isLoading } = useGetPosts();
   const [page, setPage] = useState(1);
@@ -49,8 +50,13 @@ export default function Catalog() {
 }
 
 function CatalogItem({ item }) {
+  const navigate = useNavigate();
+
   return (
-    <div className={styles.catalogItem}>
+    <div
+      className={styles.catalogItem}
+      onClick={() => navigate(`/app/post/${item._id}`)}
+    >
       <img src={`http://127.0.0.1:8000/${item.imgs[0]}`} />
       <div className={styles.postInfo}>
         <span className={styles.title}>{item.title}</span>

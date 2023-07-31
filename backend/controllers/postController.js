@@ -11,6 +11,7 @@ const Post = require(path.join(__dirname, "..", "models", "Post.js"));
 const User = require(path.join(__dirname, "..", "models", "User.js"));
 const Agency = require(path.join(__dirname, "..", "models", "Agency.js"));
 const sharp = require("sharp");
+const { validationResult } = require("express-validator");
 
 exports.createPost = catchAsync(async (req, res, next) => {
   //ako user ne providuje slike, baci error
@@ -118,5 +119,24 @@ exports.queryPosts = catchAsync(async (req, res, next) => {
     posts,
     total: totalPosts.length,
     left: totalPosts.length - totalShown,
+  });
+});
+
+exports.querySinglePost = catchAsync(async (req, res, next) => {
+  const results = validationResult(req);
+  if (results.errors.length !== 0) return next(new AppError(400, "Invalid id"));
+  const post = await Post.findOne({ _id: req.params.postId })
+    .populate({
+      path: "creator",
+      select: "-posts -password",
+    })
+    .populate({
+      path: "comments",
+      populate: { path: "creator", select: "agencyName fullName" },
+    });
+
+  if (!post) return next(new AppError(404, "Došlo je do pogreške!"));
+  return res.status(200).json({
+    post,
   });
 });

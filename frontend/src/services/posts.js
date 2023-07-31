@@ -10,3 +10,13 @@ export async function getPosts() {
     throw new Error(err);
   }
 }
+
+export async function getSinglePost(postId) {
+  try {
+    const res = await fetch(`${BASE_URL}/posts/${postId}`);
+    const data = await res.json();
+    return data;
+  } catch (err) {
+    throw new Error(err);
+  }
+}
