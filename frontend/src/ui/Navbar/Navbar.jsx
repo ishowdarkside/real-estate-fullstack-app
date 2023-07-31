@@ -1,6 +1,7 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import styles from "./Navbar.module.scss";
 import { useCurrUser } from "../../hooks/useCurrUser";
+import MobileNav from "./MobileNav";
 
 export default function Navbar() {
   const { data: user, isLoading } = useCurrUser();
@@ -47,6 +48,8 @@ export default function Navbar() {
           </li>
         </ul>
       </div>
+
+      <MobileNav isLoading={isLoading} user={user} NavLogin={NavLogin} />
     </nav>
   );
 }

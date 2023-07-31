@@ -308,7 +308,7 @@ function Form({ type }) {
           <span className={styles.errorMsg}>{errors.kvadrata.message}</span>
         )}
       </div>
-      <div>
+      <div className={styles.price}>
         <label htmlFor="price">CIJENA </label>
         <input
           type="number"

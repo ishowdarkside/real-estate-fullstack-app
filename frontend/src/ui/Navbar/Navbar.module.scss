@@ -1,7 +1,9 @@
+@import "../../styles//mixins.scss";
 .nav {
   display: flex;
   align-items: center;
   justify-content: center;
+
   background: var(--color-black-800);
   height: 8rem;
 }
@@ -18,10 +20,13 @@
   list-style: none;
   align-items: center;
   gap: 3rem;
-
+  @include responsive("tab-port") {
+    display: none;
+  }
   h1 {
     font-family: var(--font-serif);
     font-size: 3.5rem;
+    letter-spacing: 3px;
     color: var(--color-black-200);
   }
 
@@ -54,4 +59,82 @@
     background-color: var(--color-black-200);
     color: var(--color-black-700);
   }
+}
+
+.mobileNav {
+  display: none;
+
+  @include responsive("tab-port") {
+    display: flex;
+    padding: 0 2rem;
+  }
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+
+  h1 {
+    font-family: var(--font-serif);
+    font-size: 3.5rem;
+    color: var(--color-black-200);
+    letter-spacing: 3px;
+  }
+  button {
+    background-color: transparent;
+    color: var(--color-black-50);
+    border: none;
+    outline: none;
+    display: flex;
+    align-items: center;
+    font-size: 3rem;
+  }
+}
+
+.mobilePanel {
+  position: absolute;
+  width: 100%;
+  z-index: 9999;
+  background-color: var(--color-black-800);
+  left: 0;
+  padding: 3rem 1rem 2rem 1rem;
+  top: 0;
+  transform: translateY(-100%);
+  transition: all 0.3s ease;
+
+  h1 {
+    margin-bottom: 1rem;
+  }
+  button {
+    width: 100%;
+  }
+  ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    li {
+      padding: 1.2rem;
+      background-color: var(--color-black-700);
+    }
+    a {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      text-decoration: none;
+      font-size: 2rem;
+
+      color: var(--color-black-100);
+    }
+  }
+}
+
+.active {
+  transform: translateY(0);
+}
+
+.closePanel {
+  top: 1rem;
+  color: var(--color-black-100);
+  right: 1rem;
+  position: absolute;
+  width: 3rem !important;
 }

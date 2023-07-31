@@ -10,7 +10,7 @@ export default function Catalog() {
   const { data, isLoading } = useGetPosts();
   const [page, setPage] = useState(1);
   usePaginatePosts(page);
-  console.log(data);
+
   return (
     <div className={styles.catalogBody}>
       <div className="container">

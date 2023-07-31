@@ -90,7 +90,7 @@ exports.queryPosts = catchAsync(async (req, res, next) => {
   const filters = {};
   const skip = page * 9 - 9;
   if (pricegte) filters.price = { $gte: pricegte };
-  if (pricelte) filters.price = { $lte: pricegte };
+  if (pricelte) filters.price = { $lte: pricelte };
   if (search) {
     const regex = new RegExp(search, "i");
     filters.title = regex;

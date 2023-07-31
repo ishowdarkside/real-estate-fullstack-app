@@ -1,3 +1,4 @@
+@import "../../../styles/mixins.scss";
 .filterPanel {
   background-color: var(--color-black-100);
   margin-top: 4rem;
@@ -10,6 +11,18 @@
   margin-top: 2rem;
   width: 100%;
   justify-content: space-between;
+
+  @include responsive-custom(62.5em) {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 2rem;
+    row-gap: 2rem;
+    padding: 2rem;
+  }
+
+  @include responsive("mobile") {
+    grid-template-columns: 1fr;
+  }
   div {
     display: flex;
     gap: 1rem;
@@ -44,6 +57,11 @@
     padding: 1rem 2rem;
     border-radius: 5rem;
     cursor: pointer;
+
+    @include responsive("mobile") {
+      grid-column: 1 / span 1;
+      grid-row: 5 / span 1;
+    }
   }
 }
 
@@ -51,4 +69,8 @@
   flex-direction: row !important;
   gap: 5px;
   justify-content: flex-end;
+
+  @include responsive("mobile") {
+    flex-direction: column !important;
+  }
 }
