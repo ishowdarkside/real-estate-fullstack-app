@@ -37,3 +37,18 @@ export async function answerComment(commentId, answer) {
     throw new Error(err);
   }
 }
+
+export async function deleteAnswer(commentId) {
+  try {
+    const res = await fetch(`${BASE_URL}/comments/answer/${commentId}`, {
+      method: "PATCH",
+      headers: {
+        Authorization: `Bearer ${document.cookie.split("=")[1]}`,
+      },
+    });
+    const data = await res.json();
+    return data;
+  } catch (err) {
+    throw new Error(err);
+  }
+}

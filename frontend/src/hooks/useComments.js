@@ -1,5 +1,9 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { answerComment, createComment } from "../services/comments";
+import {
+  answerComment,
+  createComment,
+  deleteAnswer,
+} from "../services/comments";
 import { toast } from "react-hot-toast";
 export function usePostComment() {
   const queryClient = useQueryClient();
@@ -27,6 +31,23 @@ export function useAnswerComment() {
         queryClient.invalidateQueries({ queryKey: ["post"] });
       }
 
+      if (res.status == "fail") toast.error(res.message);
+    },
+    onError: (err) => toast.error(err.message),
+  });
+
+  return { mutate, isLoading };
+}
+
+export function useDeleteAnswer() {
+  const queryClient = useQueryClient();
+  const { mutate, isLoading } = useMutation({
+    mutationFn: (commentId) => deleteAnswer(commentId),
+    onSuccess: (res) => {
+      if (res.status === "success") {
+        toast.success(res.message),
+          queryClient.invalidateQueries({ queryKey: ["post"] });
+      }
       if (res.status == "fail") toast.error(res.message);
     },
     onError: (err) => toast.error(err.message),

@@ -9,6 +9,8 @@ const catchAsync = require(path.join(
   "catchAsync"
 ));
 const AppError = require(path.join(__dirname, "..", "utilities", "AppError"));
+const { validationResult } = require("express-validator");
+const e = require("express");
 
 exports.comment = catchAsync(async (req, res, next) => {
   const comment = req.body.comment;
@@ -67,5 +69,42 @@ exports.answerComment = catchAsync(async (req, res, next) => {
   return res.status(200).json({
     status: "success",
     message: "Upješno ste objavili odgovor na pitanje",
+  });
+});
+
+exports.deleteComment = catchAsync(async (req, res, next) => {
+  const results = validationResult(req);
+  if (results.errors.length !== 0) return next(new AppError(400, "Invalid id"));
+
+  const comment = await Comment.findById(req.params.commentId);
+  if (!comment) return next(404, "Došlo je do pogreške");
+
+  if (req.user._id.toString() !== comment.creator.toString())
+    return next(
+      new AppError(401, "You don't have permission to perform this operation")
+    );
+
+  await Comment.findByIdAndDelete(req.params.commentId);
+  res.status(200).json({
+    status: "success",
+    message: "Javno pitanje obrisano",
+  });
+});
+
+exports.deleteAnswer = catchAsync(async (req, res, next) => {
+  const comment = await Comment.findById(req.params.commentId).populate({
+    path: "post",
+    select: "creator",
+  });
+
+  if (comment.post.creator._id.toString() !== req.user._id.toString())
+    return next(
+      new AppError(400, "You don't have permission to perform this operation")
+    );
+  comment.answer = undefined;
+  await comment.save({ validateBeforeSave: false });
+  return res.status(200).json({
+    status: "success",
+    message: "Odgovor obrisan",
   });
 });

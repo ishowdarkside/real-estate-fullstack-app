@@ -1,6 +1,10 @@
 /* eslint-disable react/prop-types */
 import styles from "./Post.module.scss";
 export default function InfoComponent({ post, user }) {
+  function handleScroll() {
+    const element = document.querySelector("#formComment");
+    if (element) element.scrollIntoView({ behavior: "smooth" });
+  }
   return (
     <div className={styles.infoWrapper}>
       <h2>{post.title}</h2>
@@ -26,7 +30,7 @@ export default function InfoComponent({ post, user }) {
       <p>{post.description}</p>
 
       {user && post.creator._id !== user._id && (
-        <button>
+        <button onClick={() => handleScroll()}>
           Postavi pitanje
           {post.creator.role === "User" ? " korisniku" : " agenciji"}
         </button>

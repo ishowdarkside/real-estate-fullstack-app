@@ -103,6 +103,22 @@
   padding: 2rem;
   border-radius: 1rem;
   text-align: right;
+  position: relative;
+
+  button {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    left: 1rem;
+    transform: translateY(-50%);
+    border: none;
+    outline: none;
+    background-color: transparent;
+
+    img {
+      width: 2rem;
+    }
+  }
 }
 
 .answerWrapper {

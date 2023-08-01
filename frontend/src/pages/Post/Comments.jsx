@@ -27,7 +27,11 @@ export default function Comments({ post, user }) {
       )}
       {user && post.creator._id !== user._id && (
         <div>
-          <form className={styles.form} onSubmit={(e) => handlePostComment(e)}>
+          <form
+            className={styles.form}
+            onSubmit={(e) => handlePostComment(e)}
+            id="formComment"
+          >
             <input
               type="text"
               placeholder="Postavi javno pitanje"
