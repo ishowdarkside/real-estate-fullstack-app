@@ -13,6 +13,8 @@ import PositionContext from "./context/PositionContext";
 import Catalog from "./pages/Catalog/Catalog";
 import Post from "./pages/Post/Post";
 import ModalContext from "./context/modalContext";
+import SpecificProfile from "./pages/specificProfile/specificProfile";
+import ProfileContext from "./context/profileContext";
 
 const queryClient = new QueryClient();
 export default function App() {
@@ -44,6 +46,14 @@ export default function App() {
                   <ModalContext>
                     <Post />
                   </ModalContext>
+                }
+              />
+              <Route
+                path="profile/:profileId"
+                element={
+                  <ProfileContext>
+                    <SpecificProfile />
+                  </ProfileContext>
                 }
               />
             </Route>

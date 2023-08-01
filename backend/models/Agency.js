@@ -62,6 +62,18 @@ const agencySchema = new mongoose.Schema(
       type: "string",
     },
     posts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Post" }],
+    reviews: [
+      {
+        reviewType: {
+          type: String,
+          enum: ["positive", "negative"],
+        },
+        reviewer: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User",
+        },
+      },
+    ],
   },
   { timestamps: true }
 );

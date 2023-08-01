@@ -16,6 +16,7 @@ const generateJWT = require(path.join(
   "generateJWT"
 ));
 const Agency = require(path.join(__dirname, "..", "models", "Agency"));
+const { validationResult } = require("express-validator");
 
 exports.register = catchAsync(async (req, res, next) => {
   //check if user has inputted all required fields
@@ -153,5 +154,51 @@ exports.verify = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: "success",
     user: validProfile,
+  });
+});
+
+exports.makeReview = catchAsync(async (req, res, next) => {
+  const [user, agency] = await Promise.all([
+    User.findById(req.params.profileId),
+    Agency.findById(req.params.profileId),
+  ]);
+
+  const validProfile = user || agency;
+  if (validProfile._id.toString() === req.user._id.toString())
+    return next(new AppError("Ne možete ocijeniti svoj profil"));
+  if (!validProfile) return next(new AppError(404, "User/Agency not found!"));
+
+  validProfile.reviews.push({
+    reviewType: req.body.reviewType,
+    reviewer: req.user.id,
+  });
+
+  await validProfile.save({ validateBeforeSave: false });
+  return res.status(200).json({
+    status: "success",
+    message: "Uspješno ste ocijenili profil",
+  });
+});
+
+exports.getProfileData = catchAsync(async (req, res, next) => {
+  const results = validationResult(req);
+  if (results.errors.length !== 0) return next(new AppError(400, "Invalid id"));
+
+  const [user, agency] = await Promise.all([
+    User.findById(req.params.profileId)
+      .select("-password -passwordChangedAt -createdAt -updatedAt")
+      .populate("posts"),
+    Agency.findById(req.params.profileId)
+      .select("-password -passwordChangedAt -createdAt -updatedAt")
+      .populate("posts"),
+    ,
+  ]);
+
+  const validProfile = user || agency;
+  if (!validProfile) return next(new AppError(404, "Došlo je do pogreške"));
+
+  return res.status(200).json({
+    status: "success",
+    validProfile,
   });
 });

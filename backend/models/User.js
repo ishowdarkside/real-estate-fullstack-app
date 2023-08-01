@@ -117,9 +117,20 @@ const userSchema = new mongoose.Schema(
 
     passwordChangedAt: {
       type: Date,
-      default: new Date(),
     },
     posts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Post" }],
+    reviews: [
+      {
+        reviewType: {
+          type: String,
+          enum: ["positive", "negative"],
+        },
+        reviewer: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User",
+        },
+      },
+    ],
   },
   { timestamps: true }
 );

@@ -9,7 +9,8 @@ export default function LandingPage() {
   if (isLoading) return <Spinner />;
   return (
     <div className={styles.landingPage}>
-      <h1>Mojdom</h1>
+      {/* <h1>Mojdom</h1>*/}
+      <img src="/logo-light.svg" />
       <h2>Vaša savršena nekretnina, na dohvat ruke.</h2>
       <div>
         <button onClick={() => navigate("/app")}>POGLEDAJ OGLASE</button>

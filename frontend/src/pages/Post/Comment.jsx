@@ -7,11 +7,14 @@ import {
 } from "../../hooks/useComments";
 import styles from "./Comments.module.scss";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 export default function Comment({ com, user, post }) {
+  console.log(com);
   const { mutate: answer } = useAnswerComment();
   const { mutate: deleteAnswer } = useDeleteAnswer();
   const { mutate: deleteComment } = useDeleteComment();
   const [answerInput, setAnswerInput] = useState("");
+  const navigate = useNavigate();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -22,7 +25,10 @@ export default function Comment({ com, user, post }) {
   return (
     <div>
       <div>
-        <div className={styles.questionUser}>
+        <div
+          className={styles.questionUser}
+          onClick={() => navigate(`/app/profile/${com.creator._id}`)}
+        >
           <span>{com.creator.fullName || com.creator.agencyName}</span>
           <span>{formatDate(com.createdAt)}</span>
         </div>

@@ -143,7 +143,6 @@ exports.querySinglePost = catchAsync(async (req, res, next) => {
 });
 
 exports.deletePost = catchAsync(async (req, res, next) => {
-  console.log(req.params);
   const post = await Post.findById(req.params.postId);
   if (post.creator.toString() !== req.user._id.toString())
     return next(
@@ -155,3 +154,6 @@ exports.deletePost = catchAsync(async (req, res, next) => {
     message: "Objava uspješno obrisana",
   });
 });
+
+
+

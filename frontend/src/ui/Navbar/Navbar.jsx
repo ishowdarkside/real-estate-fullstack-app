@@ -10,7 +10,7 @@ export default function Navbar() {
     <nav className={styles.nav}>
       <div className={`container ${styles.navContainer}`}>
         <ul className={styles.list}>
-          <h1>Mojdom</h1>
+          <img src="/logo-light.svg" className={styles.logoImg} />
           <li>
             <NavLink to="/app/dashboard">POČETNA</NavLink>
           </li>

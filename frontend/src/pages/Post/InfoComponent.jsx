@@ -1,8 +1,10 @@
 /* eslint-disable react/prop-types */
+import { useNavigate } from "react-router-dom";
 import { useModalContext } from "../../context/modalContext";
 import styles from "./Post.module.scss";
 export default function InfoComponent({ post, user }) {
   const { setIsOpenModal, setSelectedPost } = useModalContext();
+  const navigate = useNavigate();
   return (
     <div className={styles.infoWrapper}>
       <h2>{post.title}</h2>
@@ -14,7 +16,11 @@ export default function InfoComponent({ post, user }) {
               {post.creator.role === "User" ? "Korisnik:" : "Agencija"}
             </span>
             <span>{post.creator.fullName || post.creator.agencyName}</span>
-            <button>VIDI VIŠE</button>
+            <button
+              onClick={() => navigate(`/app/profile/${post.creator._id}`)}
+            >
+              VIDI VIŠE
+            </button>
           </>
         )}
 
