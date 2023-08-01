@@ -1,12 +1,10 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import { usePostComment } from "../../hooks/useComments";
-import Spinner from "../../ui/Spinner/Spinner";
-
 import styles from "./Comments.module.scss";
 import Comment from "./Comment";
 export default function Comments({ post, user }) {
-  const { mutate, isLoading } = usePostComment();
+  const { mutate } = usePostComment();
   const [comment, setComment] = useState("");
 
   function handlePostComment(e) {
@@ -15,7 +13,6 @@ export default function Comments({ post, user }) {
     mutate({ postId: post._id, comment });
     setComment("");
   }
-  if (isLoading) return <Spinner />;
 
   return (
     <div className={styles.commentsPanel}>
@@ -25,6 +22,8 @@ export default function Comments({ post, user }) {
           Pitanja: {post.comments.length}
         </span>
       )}
+
+      {/*AKO JE CURRENT USER !== OD KREATORA POSTA, PRIKAZI FORRMU ZA OBJAVLJIVANJE KOMENTARA */}
       {user && post.creator._id !== user._id && (
         <div>
           <form

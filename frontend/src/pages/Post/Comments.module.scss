@@ -26,6 +26,7 @@
     margin-top: 2rem;
     border: none;
     outline: none;
+    cursor: pointer;
     background-color: var(--color-black-600);
     color: var(--color-black-50);
     padding: 1rem 2rem;
@@ -59,6 +60,22 @@
   border-top-left-radius: none;
   border-bottom-right-radius: 1rem;
   border-bottom-left-radius: 1rem;
+
+  position: relative;
+
+  button {
+    cursor: pointer;
+    position: absolute;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    img {
+      width: 2rem;
+    }
+  }
 }
 
 .questionsWrapper {

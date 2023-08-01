@@ -2,12 +2,12 @@ const express = require("express");
 const path = require("path");
 const router = express.Router();
 const { check } = require("express-validator");
-const { createPost, queryPosts, querySinglePost } = require(path.join(
-  __dirname,
-  "..",
-  "controllers",
-  "postController"
-));
+const {
+  createPost,
+  queryPosts,
+  querySinglePost,
+  deletePost,
+} = require(path.join(__dirname, "..", "controllers", "postController"));
 const { protect } = require(path.join(
   __dirname,
   "..",
@@ -25,4 +25,5 @@ router.get(
   [check("postId").isMongoId().withMessage("Invalid id")],
   querySinglePost
 );
+router.delete("/:postId", protect, deletePost);
 module.exports = router;

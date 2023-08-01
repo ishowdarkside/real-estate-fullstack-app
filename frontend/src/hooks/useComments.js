@@ -3,6 +3,7 @@ import {
   answerComment,
   createComment,
   deleteAnswer,
+  deleteComment,
 } from "../services/comments";
 import { toast } from "react-hot-toast";
 export function usePostComment() {
@@ -53,5 +54,21 @@ export function useDeleteAnswer() {
     onError: (err) => toast.error(err.message),
   });
 
+  return { mutate, isLoading };
+}
+
+export function useDeleteComment() {
+  const queryClient = useQueryClient();
+  const { mutate, isLoading } = useMutation({
+    mutationFn: (commentId) => deleteComment(commentId),
+    onSuccess: (res) => {
+      if (res.status == "success") {
+        toast.success(res.mes);
+        queryClient.invalidateQueries({ queryKey: ["post"] });
+      }
+      if (res.status == "fail") toast.error(res.message);
+    },
+    onError: (err) => toast.error(err.message),
+  });
   return { mutate, isLoading };
 }

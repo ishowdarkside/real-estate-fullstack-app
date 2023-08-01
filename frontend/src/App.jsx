@@ -12,6 +12,7 @@ import CreatePost from "./pages/CreatePost/CreatePost";
 import PositionContext from "./context/PositionContext";
 import Catalog from "./pages/Catalog/Catalog";
 import Post from "./pages/Post/Post";
+import ModalContext from "./context/modalContext";
 
 const queryClient = new QueryClient();
 export default function App() {
@@ -37,7 +38,14 @@ export default function App() {
                 }
               />
               <Route path="catalog" element={<Catalog />}></Route>
-              <Route path="post/:postId" element={<Post />} />
+              <Route
+                path="post/:postId"
+                element={
+                  <ModalContext>
+                    <Post />
+                  </ModalContext>
+                }
+              />
             </Route>
           </Routes>
         </BrowserRouter>

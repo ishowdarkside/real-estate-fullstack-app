@@ -5,6 +5,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   width: 40px;
+  z-index: 99999999;
   height: 40px;
 }
 
@@ -12,6 +13,7 @@
   box-sizing: border-box;
   display: block;
   position: absolute;
+  z-index: 99999999;
   width: 32px;
   height: 32px;
   margin: 4px;

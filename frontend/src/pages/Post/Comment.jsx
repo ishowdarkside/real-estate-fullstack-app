@@ -1,12 +1,16 @@
 /* eslint-disable react/prop-types */
 import { formatDate } from "../../services/formatDate";
-import { useAnswerComment, useDeleteAnswer } from "../../hooks/useComments";
+import {
+  useAnswerComment,
+  useDeleteAnswer,
+  useDeleteComment,
+} from "../../hooks/useComments";
 import styles from "./Comments.module.scss";
-import Spinner from "../../ui/Spinner/Spinner";
 import { useState } from "react";
 export default function Comment({ com, user, post }) {
-  const { mutate: answer, isLoading: isAnswering } = useAnswerComment();
-  const { mutate: deleteAnswer, isLoading: isDeleting } = useDeleteAnswer();
+  const { mutate: answer } = useAnswerComment();
+  const { mutate: deleteAnswer } = useDeleteAnswer();
+  const { mutate: deleteComment } = useDeleteComment();
   const [answerInput, setAnswerInput] = useState("");
 
   function handleSubmit(e) {
@@ -14,8 +18,7 @@ export default function Comment({ com, user, post }) {
     if (!answerInput) return;
     answer({ commentId: com._id, answer: answerInput });
   }
-  if (isAnswering) return <Spinner />;
-  if (isDeleting) return <Spinner />;
+
   return (
     <div>
       <div>
@@ -25,7 +28,16 @@ export default function Comment({ com, user, post }) {
         </div>
 
         <div>
-          <p className={styles.question}>{com.comment}</p>
+          <p className={styles.question}>
+            {com.comment}
+
+            {/*AKO JE USeR ULOGOVAN I AKO JE USER KREATOR KOMENTARA, RENDERUJ BUTTON ZA BRISANJE KOMENTARA */}
+            {user && user._id === com.creator._id && (
+              <button onClick={() => deleteComment(com._id)}>
+                <img src="/trash-fill.svg" />
+              </button>
+            )}
+          </p>
           {com.answer && (
             <div className={styles.answerWrapper}>
               <span>{post.creator.fullName || post.creator.agencyName}</span>

@@ -132,11 +132,26 @@ exports.querySinglePost = catchAsync(async (req, res, next) => {
     })
     .populate({
       path: "comments",
+
       populate: { path: "creator", select: "agencyName fullName" },
     });
-
+  post.comments.reverse();
   if (!post) return next(new AppError(404, "Došlo je do pogreške!"));
   return res.status(200).json({
     post,
+  });
+});
+
+exports.deletePost = catchAsync(async (req, res, next) => {
+  console.log(req.params);
+  const post = await Post.findById(req.params.postId);
+  if (post.creator.toString() !== req.user._id.toString())
+    return next(
+      new AppError(401, "You don't have permission to perform this operation!")
+    );
+  await Post.findByIdAndDelete(req.params.postId);
+  res.status(200).json({
+    status: "success",
+    message: "Objava uspješno obrisana",
   });
 });

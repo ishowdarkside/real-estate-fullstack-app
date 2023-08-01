@@ -52,3 +52,18 @@ export async function deleteAnswer(commentId) {
     throw new Error(err);
   }
 }
+
+export async function deleteComment(commentId) {
+  try {
+    const res = await fetch(`${BASE_URL}/comments/comment/${commentId}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${document.cookie.split("=")[1]}`,
+      },
+    });
+    const data = await res.json();
+    return data;
+  } catch (err) {
+    throw new Error(err);
+  }
+}

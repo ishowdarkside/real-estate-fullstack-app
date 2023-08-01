@@ -1,10 +1,8 @@
 /* eslint-disable react/prop-types */
+import { useModalContext } from "../../context/modalContext";
 import styles from "./Post.module.scss";
 export default function InfoComponent({ post, user }) {
-  function handleScroll() {
-    const element = document.querySelector("#formComment");
-    if (element) element.scrollIntoView({ behavior: "smooth" });
-  }
+  const { setIsOpenModal, setSelectedPost } = useModalContext();
   return (
     <div className={styles.infoWrapper}>
       <h2>{post.title}</h2>
@@ -23,7 +21,14 @@ export default function InfoComponent({ post, user }) {
         {user && post.creator._id === user._id && (
           <>
             <span>VAŠ OGLAS</span>
-            <button>OBRIŠI OGLAS</button>
+            <button
+              onClick={() => {
+                setIsOpenModal(true);
+                setSelectedPost(post);
+              }}
+            >
+              OBRIŠI OGLAS
+            </button>
           </>
         )}
       </div>
@@ -37,4 +42,9 @@ export default function InfoComponent({ post, user }) {
       )}
     </div>
   );
+}
+
+function handleScroll() {
+  const element = document.querySelector("#formComment");
+  if (element) element.scrollIntoView({ behavior: "smooth" });
 }

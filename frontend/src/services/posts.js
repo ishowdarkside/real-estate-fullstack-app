@@ -20,3 +20,18 @@ export async function getSinglePost(postId) {
     throw new Error(err);
   }
 }
+
+export async function deletePost(postId) {
+  try {
+    const res = await fetch(`${BASE_URL}/posts/${postId}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${document.cookie.split("=")[1]}`,
+      },
+    });
+    const data = await res.json();
+    return data;
+  } catch (err) {
+    throw new Error(err);
+  }
+}
