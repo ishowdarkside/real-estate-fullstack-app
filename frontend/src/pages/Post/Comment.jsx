@@ -9,7 +9,6 @@ import styles from "./Comments.module.scss";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 export default function Comment({ com, user, post }) {
-  console.log(com);
   const { mutate: answer } = useAnswerComment();
   const { mutate: deleteAnswer } = useDeleteAnswer();
   const { mutate: deleteComment } = useDeleteComment();

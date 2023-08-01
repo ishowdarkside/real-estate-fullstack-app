@@ -12,6 +12,7 @@ export default function ActivePostPanel() {
     );
   return (
     <div className={styles.catalogBody}>
+      <span>Aktivni oglasi</span>
       <div className="container">
         <div className={styles.postContainer}>
           {activeProfile.posts.map((item) => (

@@ -202,3 +202,32 @@ exports.getProfileData = catchAsync(async (req, res, next) => {
     validProfile,
   });
 });
+
+exports.rateProfile = catchAsync(async (req, res, next) => {
+  const [user, agency] = await Promise.all([
+    User.findById(req.params.profileId),
+    Agency.findById(req.params.profileId),
+  ]);
+  const validProfile = user || agency;
+
+  if (
+    validProfile.reviews.some(
+      (el) => el.reviewer.toString() == req.user._id.toString()
+    )
+  ) {
+    validProfile.reviews.find(
+      (el) => el.reviewer.toString() === req.user._id.toString()
+    ).reviewType = req.body.reviewType;
+  } else {
+    console.log("uso sam ovdje jer ovdje treba");
+    validProfile.reviews.push({
+      reviewType: req.body.reviewType,
+      reviewer: req.user.id,
+    });
+  }
+
+  await validProfile.save({ validateBeforeSave: false });
+  return res.status(200).json({
+    status: "success",
+  });
+});
