@@ -140,8 +140,8 @@ exports.verify = catchAsync(async (req, res, next) => {
   });
 
   const [user, agency] = await Promise.all([
-    User.findById(verified.id).select("-password"),
-    Agency.findById(verified.id).select("-password"),
+    User.findById(verified.id).select("-password").populate("posts"),
+    Agency.findById(verified.id).select("-password").populate("posts"),
   ]);
 
   const validProfile = user || agency;
@@ -219,7 +219,7 @@ exports.rateProfile = catchAsync(async (req, res, next) => {
       (el) => el.reviewer.toString() === req.user._id.toString()
     ).reviewType = req.body.reviewType;
   } else {
-    console.log("uso sam ovdje jer ovdje treba");
+
     validProfile.reviews.push({
       reviewType: req.body.reviewType,
       reviewer: req.user.id,

@@ -1,17 +1,12 @@
-import { useProfileContext } from "../../context/profileContext";
-import styles from "./SpecificProfile.module.scss";
+import { useCurrUser } from "../../hooks/useCurrUser";
+import styles from "./Me.module.scss";
 
-export default function ReviewPanel() {
-  const { activeProfile } = useProfileContext();
-  const positiveReviews = activeProfile.reviews.filter(
-    (r) => r.reviewType === "positive"
-  );
-  const negativeReviews = activeProfile.reviews.filter(
-    (r) => r.reviewType === "negative"
-  );
-
-  const finishedPosts = activeProfile.posts.filter((p) => p.finished);
-  const activePosts = activeProfile.posts.filter((p) => !p.finished);
+export default function MyReviewPanel() {
+  const { data: me } = useCurrUser();
+  const positiveReviews = me.reviews.filter((r) => r.reviewType === "positive");
+  const negativeReviews = me.reviews.filter((r) => r.reviewType === "negative");
+  const finishedPosts = me.posts.filter((p) => p.finished);
+  const activePosts = me.posts.filter((p) => !p.finished);
   return (
     <div className={styles.reviewsWrapper}>
       <div>
@@ -28,6 +23,7 @@ export default function ReviewPanel() {
         <img src="/oglas.svg" />
         <span>{activePosts.length} AKTIVNIH OGLASA</span>
       </div>
+
       <div>
         <img src="/trophy.svg" />
         <span>{finishedPosts.length} USPJEŠNIH PRODAJA</span>

@@ -7,6 +7,7 @@ const {
   queryPosts,
   querySinglePost,
   deletePost,
+  finishPost,
 } = require(path.join(__dirname, "..", "controllers", "postController"));
 const { protect } = require(path.join(
   __dirname,
@@ -26,4 +27,6 @@ router.get(
   querySinglePost
 );
 router.delete("/:postId", protect, deletePost);
+
+router.patch("/post/finish/:postId", protect, finishPost);
 module.exports = router;

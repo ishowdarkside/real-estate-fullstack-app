@@ -142,6 +142,10 @@ const postSchema = new mongoose.Schema(
       type: [String],
       required: [true, "Označite na mapi gdje se nalazi vaš objekat"],
     },
+    finished: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true }
 );

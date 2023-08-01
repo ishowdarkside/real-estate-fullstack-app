@@ -62,9 +62,7 @@ exports.createPost = catchAsync(async (req, res, next) => {
         .toFormat("jpeg")
         .jpeg({ quality: 90 })
         .toFile(`public/uploads/${filename}`);
-      console.log(
-        `Image ${file.originalname} processed and saved successfully`
-      );
+
       post.imgs.push(filename);
     } catch (err) {
       console.error(`Error processing image ${file.originalname}:`, err);
@@ -86,9 +84,11 @@ exports.queryPosts = catchAsync(async (req, res, next) => {
     vrstaOglasa,
     location,
     page = 1,
+
     search,
   } = req.query;
-  const filters = {};
+  const filters = { finished: false };
+
   const skip = page * 9 - 9;
   if (pricegte) filters.price = { $gte: pricegte };
   if (pricelte) filters.price = { $lte: pricelte };
@@ -155,5 +155,13 @@ exports.deletePost = catchAsync(async (req, res, next) => {
   });
 });
 
+exports.finishPost = catchAsync(async (req, res, next) => {
+  const post = await Post.findById(req.params.postId);
 
-
+  post.finished = true;
+  await post.save({ validateBeforeSave: false });
+  res.status(200).json({
+    status: "success",
+    message: "Oglas uspješno završen",
+  });
+});

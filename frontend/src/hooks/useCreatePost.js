@@ -8,7 +8,6 @@ export function useCreatePost() {
   const { mutate, isLoading } = useMutation({
     mutationFn: (formData) => createPost(formData),
     onSuccess: (res) => {
-      console.log(res);
       if (res.status == "success") {
         toast.success(res.message);
         queryClient.invalidateQueries({ queryKey: ["user"] });

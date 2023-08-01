@@ -15,6 +15,7 @@ import Post from "./pages/Post/Post";
 import ModalContext from "./context/modalContext";
 import SpecificProfile from "./pages/specificProfile/specificProfile";
 import ProfileContext from "./context/profileContext";
+import Me from "./pages/Me/Me";
 
 const queryClient = new QueryClient();
 export default function App() {
@@ -54,6 +55,14 @@ export default function App() {
                   <ProfileContext>
                     <SpecificProfile />
                   </ProfileContext>
+                }
+              />
+              <Route
+                path="me"
+                element={
+                  <ProtectRoute>
+                    <Me />
+                  </ProtectRoute>
                 }
               />
             </Route>

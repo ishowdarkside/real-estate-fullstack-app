@@ -1,7 +1,6 @@
 const BASE_URL = `http://127.0.0.1:8000/api`;
 export async function createComment(postId, comment) {
   try {
-    console.log(postId, comment);
     const res = await fetch(`${BASE_URL}/comments/${postId}`, {
       method: "POST",
       headers: {

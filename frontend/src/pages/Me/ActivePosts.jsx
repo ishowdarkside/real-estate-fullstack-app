@@ -1,28 +1,32 @@
 /* eslint-disable react/prop-types */
 import { useNavigate } from "react-router-dom";
-import { useProfileContext } from "../../context/profileContext";
-import styles from "./SpecificProfile.module.scss";
+import { useCurrUser } from "../../hooks/useCurrUser";
+import styles from "./Me.module.scss";
+import Spinner from "../../ui/Spinner/Spinner";
+export default function ActivePosts() {
+  const { data: me, isLoading } = useCurrUser();
+  const finishedPosts = me.posts.filter((p) => p.finished);
+  const activePosts = me.posts.filter((p) => !p.finished);
 
-export default function ActivePostPanel() {
-  const { activeProfile } = useProfileContext();
-  if (!activeProfile) return null;
-  const activePosts = activeProfile.posts.filter((p) => !p.finished);
-  const finishedPosts = activeProfile.posts.filter((p) => p.finished);
+  if (isLoading) return <Spinner />;
   if (activePosts.length === 0)
     return (
-      <>
-        <span className={styles.noContent}>Korisnik nema aktivnih oglasa</span>
-        <FinishedPosts posts={finishedPosts} />
-      </>
+      <div>
+        <span className={styles.noContent}>Nemate aktivnih oglasa</span>
+        {finishedPosts.length > 0 && <FinishedPosts posts={finishedPosts} />}
+      </div>
     );
   return (
     <div className={styles.catalogBody}>
       <span>Aktivni oglasi</span>
+
       <div className="container">
         <div className={styles.postContainer}>
-          {activePosts.map((item) => (
-            <CatalogItem item={item} key={item._id} />
-          ))}
+          {me.posts
+            .filter((p) => !p.finished)
+            .map((item) => (
+              <CatalogItem item={item} key={item._id} />
+            ))}
         </div>
       </div>
       <FinishedPosts posts={finishedPosts} />

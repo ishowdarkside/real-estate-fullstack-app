@@ -2,8 +2,11 @@
 import { useNavigate } from "react-router-dom";
 import { useModalContext } from "../../context/modalContext";
 import styles from "./Post.module.scss";
+import { useFinishPost } from "../../hooks/useFinishPost";
 export default function InfoComponent({ post, user }) {
   const { setIsOpenModal, setSelectedPost } = useModalContext();
+  const { mutate } = useFinishPost();
+
   const navigate = useNavigate();
   return (
     <div className={styles.infoWrapper}>
@@ -16,6 +19,7 @@ export default function InfoComponent({ post, user }) {
               {post.creator.role === "User" ? "Korisnik:" : "Agencija"}
             </span>
             <span>{post.creator.fullName || post.creator.agencyName}</span>
+            {post.finished && <span>PRODAJA ZAVRŠENA</span>}
             <button
               onClick={() => navigate(`/app/profile/${post.creator._id}`)}
             >
@@ -27,14 +31,20 @@ export default function InfoComponent({ post, user }) {
         {user && post.creator._id === user._id && (
           <>
             <span>VAŠ OGLAS</span>
-            <button
-              onClick={() => {
-                setIsOpenModal(true);
-                setSelectedPost(post);
-              }}
-            >
-              OBRIŠI OGLAS
-            </button>
+            {!post.finished && (
+              <>
+                <button onClick={() => mutate(post._id)}>Završi oglas</button>
+                <button
+                  onClick={() => {
+                    setIsOpenModal(true);
+                    setSelectedPost(post);
+                  }}
+                >
+                  OBRIŠI OGLAS
+                </button>
+              </>
+            )}
+            {post.finished && <span>OGLAS JE ZAVRŠEN</span>}
           </>
         )}
       </div>

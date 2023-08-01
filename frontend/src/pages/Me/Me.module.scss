@@ -1,12 +1,4 @@
 @import "../../styles//mixins.scss";
-.errorMessage {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 2rem;
-}
-
 .pageBody {
   padding: 10rem 0;
 }

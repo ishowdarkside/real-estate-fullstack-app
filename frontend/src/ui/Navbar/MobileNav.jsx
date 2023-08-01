@@ -29,24 +29,14 @@ export default function MobileNav({ isLoading, user, NavLogin }) {
           <li onClick={() => setIsActive(false)}>
             <NavLink to="/app/catalog">Traži oglase</NavLink>
           </li>
-          <li onClick={() => setIsActive(false)}>
-            <NavLink to="/app/agencies">
-              <img src="/agency-sm.svg" />
-              Agencije
-            </NavLink>
-          </li>
+
           <li onClick={() => setIsActive(false)}>
             <NavLink to="/app/create-post">
               <img src="/plus.svg" />
               Objavi
             </NavLink>
           </li>
-          <li onClick={() => setIsActive(false)}>
-            <NavLink to="/app/chat">
-              <img src="/chat.svg" />
-              Chat
-            </NavLink>
-          </li>
+
           <li onClick={() => setIsActive(false)}>
             {!isLoading && user && (
               <NavLink to="/app/me">

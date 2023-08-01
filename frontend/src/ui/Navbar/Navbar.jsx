@@ -20,23 +20,12 @@ export default function Navbar() {
         </ul>
         <ul className={styles.list}>
           <li>
-            <NavLink to="/app/agencies">
-              <img src="/agency-sm.svg" />
-              Agencije
-            </NavLink>
-          </li>
-          <li>
             <NavLink to="/app/create-post">
               <img src="/plus.svg" />
               Objavi
             </NavLink>
           </li>
-          <li>
-            <NavLink to="/app/chat">
-              <img src="/chat.svg" />
-              Chat
-            </NavLink>
-          </li>
+
           <li>
             {!isLoading && user && (
               <NavLink to="/app/me">

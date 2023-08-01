@@ -4,6 +4,9 @@ const profileContext = createContext();
 
 // eslint-disable-next-line react/prop-types
 export default function ProfileContext({ children }) {
+  {
+    /**TOTALNO NEPOTREBAN CONTEXT - OVO JE REMOTE STATE - IMAM CUSTOM HOOK - OBRISAT I PREBACIT SE NA React Query */
+  }
   const [activeProfile, setActiveProfile] = useState(null);
   return (
     <profileContext.Provider value={{ activeProfile, setActiveProfile }}>

@@ -35,3 +35,18 @@ export async function deletePost(postId) {
     throw new Error(err);
   }
 }
+
+export async function finishPost(postId) {
+  try {
+    const res = await fetch(`${BASE_URL}/posts/post/finish/${postId}`, {
+      method: "PATCH",
+      headers: {
+        Authorization: `Bearer ${document.cookie.split("=")[1]}`,
+      },
+    });
+    const data = await res.json();
+    return data;
+  } catch (err) {
+    throw new Error(err);
+  }
+}
