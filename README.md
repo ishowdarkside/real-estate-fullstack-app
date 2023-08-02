@@ -28,10 +28,12 @@ Features of the application:
 To fully test the application register or use test data:
 email: test@gmail.com
 password: stalker1
+![slidza1](https://github.com/ishowdarkside/real-estate-fullstack-app/assets/88293435/5a1eff50-692f-4219-9bcc-aa4e17948f4c)
 
-![Uploading slidza1.png…]()
-![Uploading slidza2.png…]()
-![Uploading slidza3.png…]()
-![Uploading slidza4.png…]()
-![slidza5](https://github.com/ishowdarkside/real-estate-fullstack-app/assets/88293435/40a90668-df8d-445e-9ab8-a392bb9e3b8f)
-![Uploading slidza6.png…]()
+![slidza2](https://github.com/ishowdarkside/real-estate-fullstack-app/assets/88293435/3d2fb407-0bcc-4b36-95cf-bc6467543686)
+![slidza3](https://github.com/ishowdarkside/real-estate-fullstack-app/assets/88293435/2fbaff97-f880-4b55-8888-4835130bc8e0)
+
+![slidza4](https://github.com/ishowdarkside/real-estate-fullstack-app/assets/88293435/c0fa9665-8b1a-4e72-877a-b2312dc21e0d)
+![slidza5](https://github.com/ishowdarkside/real-estate-fullstack-app/assets/88293435/c5356c70-a92e-48c7-8bc8-d76ec7a017f6)
+![slidza6](https://github.com/ishowdarkside/real-estate-fullstack-app/assets/88293435/7df10b91-05ce-4ffd-a462-1aec80b6026a)
+![Untitled](https://github.com/ishowdarkside/real-estate-fullstack-app/assets/88293435/6aa4d6d0-0848-4f8e-bd2f-c73e6473fe43)
