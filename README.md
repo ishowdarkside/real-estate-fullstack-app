@@ -25,6 +25,7 @@ Features of the application:
 
 To fully test the application register or use test data:
 email: test@gmail.com
+password: stalker1
 
 ![Uploading slidza1.png…]()
 ![Uploading slidza2.png…]()
