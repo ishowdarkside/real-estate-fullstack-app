@@ -16,6 +16,7 @@ import ModalContext from "./context/modalContext";
 import SpecificProfile from "./pages/specificProfile/specificProfile";
 import ProfileContext from "./context/profileContext";
 import Me from "./pages/Me/Me";
+import DashboardContext from "./context/dashboardContext";
 
 const queryClient = new QueryClient();
 export default function App() {
@@ -29,7 +30,14 @@ export default function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/app" element={<AppLayout />}>
               <Route index element={<Navigate replace to="dashboard" />} />
-              <Route path="dashboard" element={<Dashboard />} />
+              <Route
+                path="dashboard"
+                element={
+                  <DashboardContext>
+                    <Dashboard />
+                  </DashboardContext>
+                }
+              />
               <Route
                 path="create-post"
                 element={

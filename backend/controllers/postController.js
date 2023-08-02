@@ -165,3 +165,10 @@ exports.finishPost = catchAsync(async (req, res, next) => {
     message: "Oglas uspješno završen",
   });
 });
+
+exports.getAllPosts = catchAsync(async (req, res, next) => {
+  const posts = await Post.find({ finished: false });
+  return res.status(200).json({
+    posts,
+  });
+});

@@ -1,0 +1,126 @@
+.dashboardBody {
+  height: 100dvh;
+}
+
+.mapContainer {
+  overflow: hidden !important;
+  width: 100dvw;
+  max-width: 100dvw;
+  height: 90dvh;
+  background-color: red;
+  position: relative;
+}
+
+.buildingModal {
+  height: 70rem;
+  width: 70rem;
+  position: absolute;
+  z-index: 999999;
+  right: 0;
+  top: 50%;
+  border-top-left-radius: 2rem;
+  border-bottom-left-radius: 2rem;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+  transform: translateY(-50%) translateX(100%);
+  background-color: #ffff;
+  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1) 0s;
+  padding: 2rem 4rem 2rem 2rem;
+
+  img {
+    border-radius: 1rem;
+    max-width: 40rem;
+  }
+}
+
+.showModal {
+  transform: translateY(-50%) translateX(0);
+}
+
+.generalInfo {
+  padding: 1rem;
+  background-color: var(--color-black-100);
+  border-radius: 1rem;
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+  & > * {
+    padding: 0.5rem 1rem;
+    border-radius: 1rem;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+    background-color: #ffff;
+  }
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: var(--color-black-100);
+  border-radius: 1rem;
+  h1 {
+    font-size: 1.5rem;
+  }
+}
+
+.price {
+  font-size: 3rem;
+  padding: 1rem;
+  background-color: #ffff;
+  border-radius: 1rem;
+  color: var(--color-black-600);
+  font-weight: 600;
+  width: fit-content;
+  margin-top: 1rem;
+}
+
+.buttonAdvanced {
+  display: block;
+  width: 100%;
+  margin-top: 3rem;
+  padding: 1rem;
+  font-size: 1.8rem;
+  letter-spacing: 3px;
+  color: var(--color-black-50);
+  background-color: var(--color-black-800);
+  outline: none;
+  border: none;
+  cursor: pointer;
+  border-radius: 1rem;
+}
+
+.closeModal {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  font-size: 3rem;
+  position: absolute;
+  cursor: pointer;
+  top: 2rem;
+  right: 2rem;
+}
+
+.headerDashboard {
+  position: absolute;
+  z-index: 999;
+  top: 4rem;
+  left: 4rem;
+
+  h1 {
+    font-family: var(--font-serif);
+    user-select: none;
+    font-size: 6rem;
+    text-shadow: -2px 3px 13px rgba(19, 19, 19, 0.36);
+    color: var(--color-black-700);
+  }
+
+  span {
+    text-shadow: -2px 3px 13px rgba(19, 19, 19, 0.36);
+    user-select: none;
+    font-size: 1.5rem;
+  }
+}

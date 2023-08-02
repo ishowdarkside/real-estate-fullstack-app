@@ -8,6 +8,7 @@ const {
   querySinglePost,
   deletePost,
   finishPost,
+  getAllPosts,
 } = require(path.join(__dirname, "..", "controllers", "postController"));
 const { protect } = require(path.join(
   __dirname,
@@ -21,6 +22,7 @@ const upload = multer({ storage: multer.memoryStorage() });
 //za objavljivanje posta
 router.post("/createPost", protect, upload.array("photos", 7), createPost);
 router.get("/", queryPosts);
+router.get("/all", getAllPosts);
 router.get(
   "/:postId",
   [check("postId").isMongoId().withMessage("Invalid id")],
