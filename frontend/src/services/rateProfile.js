@@ -1,12 +1,11 @@
-const BASE_URL = `http://127.0.0.1:8000/api`;
+const BASE_URL = `/`;
 
 export async function rateProfilePositive(profileId) {
   try {
-    const res = await fetch(`${BASE_URL}/auth/rate/${profileId}`, {
+    const res = await fetch(`${BASE_URL}api/auth/rate/${profileId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${document.cookie.split("=")[1]}`,
       },
       body: JSON.stringify({
         reviewType: "positive",
@@ -21,11 +20,10 @@ export async function rateProfilePositive(profileId) {
 
 export async function rateProfileNegative(profileId) {
   try {
-    const res = await fetch(`${BASE_URL}/auth/rate/${profileId}`, {
+    const res = await fetch(`${BASE_URL}api/auth/rate/${profileId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${document.cookie.split("=")[1]}`,
       },
       body: JSON.stringify({
         reviewType: "negative",

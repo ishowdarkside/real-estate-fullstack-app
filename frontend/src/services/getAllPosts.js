@@ -1,8 +1,8 @@
-const BASE_URL = `http://127.0.0.1:8000/api`;
+const BASE_URL = `/`;
 
 export async function getAllPosts() {
   try {
-    const res = await fetch(`${BASE_URL}/posts/all`);
+    const res = await fetch(`${BASE_URL}api/posts/all`);
     const data = await res.json();
 
     return data;

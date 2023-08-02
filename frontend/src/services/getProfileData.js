@@ -1,7 +1,7 @@
-const BASE_URL = `http://127.0.0.1:8000/api`;
+const BASE_URL = `/`;
 export async function getProfileData(profileId) {
   try {
-    const res = await fetch(`${BASE_URL}/auth/profile/${profileId}`);
+    const res = await fetch(`${BASE_URL}api/auth/profile/${profileId}`);
     const data = await res.json();
     return data;
   } catch (err) {

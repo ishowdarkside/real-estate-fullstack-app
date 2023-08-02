@@ -27,7 +27,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 //serve static files
-app.use(express.static(path.join(__dirname, "public", "uploads")));
+app.use(express.static(path.join(__dirname, "public", "dist")));
 
 //Using User Router for authentication
 app.use("/api/auth", userRouter);
@@ -40,10 +40,7 @@ app.use("/api/comments", commentRouter);
 
 //handling unhandled routes
 app.use("*", (req, res, next) => {
-  res.status(404).json({
-    status: "fail",
-    message: "Route not found!",
-  });
+  res.sendFile(path.join(__dirname, "public", "dist", "index.html"));
 });
 
 app.use(errorMiddleware);

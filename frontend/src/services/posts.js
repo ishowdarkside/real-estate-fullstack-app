@@ -1,9 +1,9 @@
-const BASE_URL = `http://127.0.0.1:8000/api`;
+const BASE_URL = `/`;
 export async function getPosts() {
   const queryString = window.location.search;
   queryString.replace("sve", "");
   try {
-    const res = await fetch(`${BASE_URL}/posts${queryString}`);
+    const res = await fetch(`${BASE_URL}api/posts${queryString}`);
     const data = res.json();
     return data;
   } catch (err) {
@@ -13,7 +13,7 @@ export async function getPosts() {
 
 export async function getSinglePost(postId) {
   try {
-    const res = await fetch(`${BASE_URL}/posts/${postId}`);
+    const res = await fetch(`${BASE_URL}api/posts/${postId}`);
     const data = await res.json();
     return data;
   } catch (err) {
@@ -23,11 +23,8 @@ export async function getSinglePost(postId) {
 
 export async function deletePost(postId) {
   try {
-    const res = await fetch(`${BASE_URL}/posts/${postId}`, {
+    const res = await fetch(`${BASE_URL}api/posts/${postId}`, {
       method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${document.cookie.split("=")[1]}`,
-      },
     });
     const data = await res.json();
     return data;
@@ -38,11 +35,8 @@ export async function deletePost(postId) {
 
 export async function finishPost(postId) {
   try {
-    const res = await fetch(`${BASE_URL}/posts/post/finish/${postId}`, {
+    const res = await fetch(`${BASE_URL}api/posts/post/finish/${postId}`, {
       method: "PATCH",
-      headers: {
-        Authorization: `Bearer ${document.cookie.split("=")[1]}`,
-      },
     });
     const data = await res.json();
     return data;

@@ -41,7 +41,7 @@ function CatalogItem({ item }) {
       className={styles.catalogItem}
       onClick={() => navigate(`/app/post/${item._id}`)}
     >
-      <img src={`http://127.0.0.1:8000/${item.imgs[0]}`} />
+      <img src={`/${item.imgs[0]}`} />
       <div className={styles.postInfo}>
         <span className={styles.title}>{item.title}</span>
         <span className={styles.price}>

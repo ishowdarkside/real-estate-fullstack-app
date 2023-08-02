@@ -29,7 +29,7 @@ export default function BuildingModal() {
           >
             <AiFillCloseCircle />
           </button>
-          <img src={`http://127.0.0.1:8000/${post.imgs[0]}`} />
+          <img src={`/${post.imgs[0]}`} />
           <div className={styles.generalInfo}>
             <span>{post.tipNekretnine}</span>
             <span>{post.vrstaOglasa}</span>

@@ -7,11 +7,7 @@ export default function ImageComponent({ post }) {
     <div className={styles.imageWrapper}>
       <Carousel>
         {post.imgs.map((image, i) => (
-          <img
-            src={`http://127.0.0.1:8000/${image}`}
-            key={i}
-            alt="slika nekretnine"
-          />
+          <img src={`/${image}`} key={i} alt="slika nekretnine" />
         ))}
       </Carousel>
     </div>

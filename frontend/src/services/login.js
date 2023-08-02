@@ -1,7 +1,7 @@
-const BASE_URL = `http://127.0.0.1:8000/api`;
+const BASE_URL = `/`;
 export async function login(formData) {
   try {
-    const res = await fetch(`${BASE_URL}/auth/login`, {
+    const res = await fetch(`${BASE_URL}api/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),

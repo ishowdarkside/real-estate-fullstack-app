@@ -61,7 +61,7 @@ exports.createPost = catchAsync(async (req, res, next) => {
         .resize(2000, 1333)
         .toFormat("jpeg")
         .jpeg({ quality: 90 })
-        .toFile(`public/uploads/${filename}`);
+        .toFile(`public/dist/${filename}`);
 
       post.imgs.push(filename);
     } catch (err) {

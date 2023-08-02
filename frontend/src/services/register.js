@@ -1,4 +1,4 @@
-const BASE_URL = `http://127.0.0.1:8000/api`;
+const BASE_URL = `/`;
 
 export async function registerUser(formData) {
   formData.phoneNumber === ""
@@ -6,7 +6,7 @@ export async function registerUser(formData) {
     : formData.phoneNumber;
 
   try {
-    const res = await fetch(`${BASE_URL}/auth/user/register`, {
+    const res = await fetch(`${BASE_URL}api/auth/user/register`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
@@ -23,7 +23,7 @@ export async function registerAgency(formData) {
     ? (formData.phoneNumber = undefined)
     : formData.phoneNumber;
   try {
-    const res = await fetch(`${BASE_URL}/auth/agency/register`, {
+    const res = await fetch(`${BASE_URL}api/auth/agency/register`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),

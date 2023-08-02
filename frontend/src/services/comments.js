@@ -1,11 +1,10 @@
-const BASE_URL = `http://127.0.0.1:8000/api`;
+const BASE_URL = `/`;
 export async function createComment(postId, comment) {
   try {
-    const res = await fetch(`${BASE_URL}/comments/${postId}`, {
+    const res = await fetch(`${BASE_URL}api/comments/${postId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${document.cookie.split("=")[1]}`,
       },
       body: JSON.stringify({
         comment,
@@ -20,11 +19,10 @@ export async function createComment(postId, comment) {
 
 export async function answerComment(commentId, answer) {
   try {
-    const res = await fetch(`${BASE_URL}/comments/answer/${commentId}`, {
+    const res = await fetch(`${BASE_URL}api/comments/answer/${commentId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${document.cookie.split("=")[1]}`,
       },
       body: JSON.stringify({
         answer,
@@ -39,11 +37,8 @@ export async function answerComment(commentId, answer) {
 
 export async function deleteAnswer(commentId) {
   try {
-    const res = await fetch(`${BASE_URL}/comments/answer/${commentId}`, {
+    const res = await fetch(`${BASE_URL}api/comments/answer/${commentId}`, {
       method: "PATCH",
-      headers: {
-        Authorization: `Bearer ${document.cookie.split("=")[1]}`,
-      },
     });
     const data = await res.json();
     return data;
@@ -54,11 +49,8 @@ export async function deleteAnswer(commentId) {
 
 export async function deleteComment(commentId) {
   try {
-    const res = await fetch(`${BASE_URL}/comments/comment/${commentId}`, {
+    const res = await fetch(`${BASE_URL}api/comments/comment/${commentId}`, {
       method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${document.cookie.split("=")[1]}`,
-      },
     });
     const data = await res.json();
     return data;

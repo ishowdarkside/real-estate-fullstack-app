@@ -71,7 +71,7 @@ exports.login = catchAsync(async (req, res, next) => {
 });
 
 exports.protect = catchAsync(async (req, res, next) => {
-  const token = req.cookies?.jwt || req.headers.authorization?.split(" ")?.[1];
+  const token = req.cookies?.jwt;
   if (!token) return next(new AppError(401, "Unauthorized, please login!"));
 
   const verified = jwt.verify(token, process.env.JWT_SECRET, (err, token) => {
@@ -132,7 +132,7 @@ exports.loginAgency = catchAsync(async (req, res, next) => {
 });
 
 exports.verify = catchAsync(async (req, res, next) => {
-  const token = req.headers.authorization?.split(" ")?.[1];
+  const token = req.cookies.jwt;
   if (!token) return next(new AppError(401, "Unathorized"));
   const verified = jwt.verify(token, process.env.JWT_SECRET, (err, token) => {
     if (err) return next(new AppError(401, "invalid token, please login!"));
@@ -219,7 +219,6 @@ exports.rateProfile = catchAsync(async (req, res, next) => {
       (el) => el.reviewer.toString() === req.user._id.toString()
     ).reviewType = req.body.reviewType;
   } else {
-
     validProfile.reviews.push({
       reviewType: req.body.reviewType,
       reviewer: req.user.id,
