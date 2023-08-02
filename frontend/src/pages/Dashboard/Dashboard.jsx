@@ -21,7 +21,7 @@ const customIconLocation = new L.icon({
 export default function Dashboard() {
   const [position, setPosition] = useState([44.5375, 18.6735]);
   const { data, isLoading } = useGetAllPosts();
-  const { activeBuilding, setActiveBuilding } = useDashboardContext();
+  const { setActiveBuilding } = useDashboardContext();
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((pos) => {
       const lat = pos.coords.latitude;
@@ -48,7 +48,12 @@ export default function Dashboard() {
           zoom={14}
           zoomControl={false}
           scrollWheelZoom={true}
-          style={{ height: "90dvh", width: "100%", position: "absolute" }}
+          style={{
+            height: "90dvh",
+            width: "100%",
+            position: "absolute",
+            left: 0,
+          }}
         >
           <TileLayer url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png'" />
 

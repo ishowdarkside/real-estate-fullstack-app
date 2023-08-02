@@ -1,19 +1,21 @@
+@import "../../styles//mixins.scss";
 .dashboardBody {
   height: 100dvh;
+  overflow: hidden !important;
 }
 
 .mapContainer {
   overflow: hidden !important;
-  width: 100dvw;
-  max-width: 100dvw;
+
   height: 90dvh;
-  background-color: red;
+
   position: relative;
 }
 
 .buildingModal {
   height: 70rem;
   width: 70rem;
+  max-width: 70rem;
   position: absolute;
   z-index: 999999;
   right: 0;
@@ -27,6 +29,18 @@
   transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1) 0s;
   padding: 2rem 4rem 2rem 2rem;
 
+  @include responsive-custom(43.75em) {
+    width: 50rem;
+    max-width: 50rem;
+  }
+
+  @include responsive-custom(25.625em) {
+    max-width: 40rem;
+
+    img {
+      width: 100%;
+    }
+  }
   img {
     border-radius: 1rem;
     max-width: 40rem;
@@ -59,18 +73,22 @@
   display: flex;
   flex-direction: column;
   margin-top: 1rem;
-  padding: 1rem;
+  padding: 1rem 1rem 3rem 1rem;
   background-color: var(--color-black-100);
   border-radius: 1rem;
-  h1 {
-    font-size: 1.5rem;
+  h2 {
+    font-size: 2rem;
+    font-family: var(--font-serif) !important;
+    color: var(--color-black-700);
+  }
+  h3 {
+    font-size: 0.9rem;
   }
 }
 
 .price {
-  font-size: 3rem;
-  padding: 1rem;
-  background-color: #ffff;
+  font-size: 1.7rem;
+
   border-radius: 1rem;
   color: var(--color-black-600);
   font-weight: 600;
@@ -102,6 +120,11 @@
   cursor: pointer;
   top: 2rem;
   right: 2rem;
+
+  @include responsive-custom(25.625em) {
+    top: 5px;
+    right: 5px;
+  }
 }
 
 .headerDashboard {
@@ -123,4 +146,12 @@
     user-select: none;
     font-size: 1.5rem;
   }
+}
+
+.description {
+  font-size: 1.2rem;
+}
+
+.subtitle {
+  font-size: 1.2rem;
 }

@@ -41,11 +41,11 @@ export default function BuildingModal() {
 
           <div className={styles.info}>
             <h2>{post.title}</h2>
-            <span>{[post.subtitle]}</span>
+            <span className={styles.subtitle}>{[post.subtitle]}</span>
             <span className={styles.price}>
               {post.price.toLocaleString("en-US")} KM
             </span>
-            <span>{post.opis}</span>
+            <span className={styles.description}>{post.description}</span>
           </div>
           <button
             className={styles.buttonAdvanced}
