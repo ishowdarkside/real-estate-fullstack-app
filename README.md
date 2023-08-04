@@ -1,7 +1,7 @@
 # Real Estate Fullstack App
 Full-stack application for renting and buying real estate
 
-The web app isn't that mobile-friendly...I may work on it, soon.
+The map on the landing page doesn't work on mobile (at least on mine), gotta fix that!
 
 Hosted Website: https://ajdin-real-estate.onrender.com/
 ( Wait a few minutes before it loads a website, due to free hosting constraints)
